@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Papelería joymari</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      text-align: center;
+      background-color: #f0e68c;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+    }
+    .producto {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 15px;
+    }
+    .producto img {
+      width: 50px;
+      height: 50px;
+      border-radius: 5px;
+    }
+    select {
+      padding: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+    button:hover {
+      background-color: #ddd;
+    }
+    .seccion {
+      display: none;
+    }
+    .activa {
+      display: block;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+  <h1>Papelería joymari</h1>
+
+  <div class="container">
+    <div id="formulario" class="activa">
+      <label>Nombre: <input type="text" id="nombre"></label><br><br>
+
+      <div id="productos"></div>
+
+      <button id="calcular">Calcular Pedido</button>
+    </div>
+
+    <div id="resumen" class="seccion">
+      <h2>Resumen del Pedido</h2>
+      <pre id="detallePedido"></pre>
+    </div>
+  </div>
+
+  <script>
+    const productos = [
+      { id: "pluma", nombre: "Pluma", precio: 12 },
+      { id: "lapiz", nombre: "Lápiz", precio: 5 },
+      { id: "hojas", nombre: "Hojas", precio: 50 },
+      { id: "resistol", nombre: "Resistol", precio: 15 },
+      { id: "fichas", nombre: "Fichas de trabajo", precio: 10 },
+      { id: "liston", nombre: "Listón", precio: 50 },
+      { id: "brillitos", nombre: "Brillitos", precio: 15 },
+      { id: "estampas", nombre: "Estampas", precio: 10 },
+      { id: "plastilina", nombre: "Plastilina", precio: 10 },
+      { id: "papelbond", nombre: "Papel Bond", precio: 4 },
+      { id: "cartel", nombre: "Cartel", precio: 4 },
+      { id: "globos", nombre: "Globos", precio: 15 }
+    ];
+
+    const contenedor = document.getElementById("productos");
+
+    productos.forEach(producto => {
+      const div = document.createElement("div");
+      div.classList.add("producto");
+      div.innerHTML = `
+        <img src="${producto.id}.jpg" alt="${producto.nombre}">
+        <label>${producto.nombre}:</label>
+        <select id="${producto.id}">
+          <option value="${producto.precio}">${producto.nombre} - $${producto.precio}</option>
+        </select>
+      `;
+      contenedor.appendChild(div);
+    });
+
+    function formatoMoneda(valor) {
+      return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(valor);
+    }
+
+    document.getElementById("calcular").addEventListener("click", () => {
+      const nombre = document.getElementById("nombre").value.trim();
+      if (!nombre) {
+        alert("Por favor, ingresa tu nombre.");
+        return;
+      }
+
+      let total = 0;
+      let detalles = `Nombre: ${nombre}\n\nPedido:\n`;
+      
+      productos.forEach(producto => {
+        const precio = parseFloat(document.getElementById(producto.id).value);
+        total += precio;
+        detalles += `- ${producto.nombre}: ${formatoMoneda(precio)}\n`;
+      });
+
+      detalles += `\nTotal a pagar: ${formatoMoneda(total)}`;
+      document.getElementById("detallePedido").innerText = detalles;
+      document.getElementById("resumen").classList.add("activa");
+    });
+  </script>
+
+</body>
+</html>

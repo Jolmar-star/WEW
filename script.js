@@ -1,98 +1,120 @@
-document.getElementById("comenzar").addEventListener("click", function () {
-    document.getElementById("bienvenida").classList.remove("activa");
-    document.getElementById("formulario-seccion").classList.add("activa");
-});
+document.addEventListener("DOMContentLoaded", () => {
+  emailjs.init("bK2FiyMbUsmnkDiz2");
 
-document.getElementById("calcular").addEventListener("click", function () {
+  const secciones = {
+    inicio: document.getElementById("inicio"),
+    formulario: document.getElementById("formulario-seccion"),
+    detalle: document.getElementById("detalle-seccion"),
+    tarjeta: document.getElementById("tarjeta-seccion"),
+    efectivo: document.getElementById("efectivo-seccion"),
+    domicilio: document.getElementById("domicilio-seccion"),
+    pdf: document.getElementById("pdf-opciones"),
+    despedida: document.getElementById("despedida"),
+  };
+
+  const mostrarSeccion = (id) => {
+    Object.values(secciones).forEach((sec) => sec.classList.remove("activa"));
+    secciones[id].classList.add("activa");
+  };
+
+  let detallePedido = "";
+  let tipoEntrega = "";
+  let metodoPago = "";
+
+  document.getElementById("comenzar").addEventListener("click", () => {
+    mostrarSeccion("formulario");
+  });
+
+  document.getElementById("calcular").addEventListener("click", () => {
     const nombre = document.getElementById("nombre").value;
-    const Fecha = document.getElementById("Fecha").value;
+    const fecha = document.getElementById("Fecha").value;
 
-    const pizza1 = parseFloat(document.getElementById("Pizza1").value);
-    const pizza2 = parseFloat(document.getElementById("Pizza2").value);
-    const pizza3 = parseFloat(document.getElementById("Pizza3").value);
+    const pizza1 = parseFloat(document.getElementById("Pizza1").value) || 0;
+    const pizza2 = parseFloat(document.getElementById("Pizza2").value) || 0;
+    const pizza3 = parseFloat(document.getElementById("Pizza3").value) || 0;
 
-    const complementos = document.querySelectorAll('.checkbox-container input[type="checkbox"]:checked');
-    let complementosTotal = 0;
-    let complementosDetalle = [];
+    const extras = [
+      { id: "queso1", texto: "Extra Queso", precio: 20 },
+      { id: "refresco", texto: "Refresco", precio: 15 },
+      { id: "orilla", texto: "Orilla de Queso", precio: 34 },
+      { id: "papas", texto: "Papas", precio: 50 },
+    ];
 
-    complementos.forEach((complemento) => {
-        complementosTotal += parseFloat(complemento.value);
-        complementosDetalle.push(complemento.nextElementSibling.textContent);
+    let total = pizza1 + pizza2 + pizza3;
+    let extrasTexto = "";
+
+    extras.forEach((extra) => {
+      if (document.getElementById(extra.id).checked) {
+        total += extra.precio;
+        extrasTexto += `\n- ${extra.texto}: $${extra.precio}`;
+      }
     });
 
-    const total = pizza1 + pizza2 + pizza3 + complementosTotal;
-    document.getElementById("detalle-seccion").classList.add("activa");
-    document.getElementById("formulario-seccion").classList.remove("activa");
-    document.getElementById("detallePedido").innerHTML = `
-        <strong>Nombre:</strong> ${nombre}<br>
-        <strong>Fecha:</strong> ${Fecha}<br>
-        <strong>Productos:</strong> 
-        <ul>
-            <li>Pizza Mexicana ($${pizza1.toFixed(2)})</li>
-            <li>Pizza Pepperoni ($${pizza2.toFixed(2)})</li>
-            <li>Pizza Hawaiana ($${pizza3.toFixed(2)})</li>
-        </ul>
-        <strong>Complementos:</strong> ${complementosDetalle.join(", ")}<br>
-        <strong>Total:</strong> $${total.toFixed(2)}
-    `;
-    document.getElementById("detallePedido").dataset.total = total;
-});
+    detallePedido = `Nombre: ${nombre}\nFecha: ${fecha}\n\nPizzas:\n- Pizza 1: $${pizza1}\n- Pizza 2: $${pizza2}\n- Pizza 3: $${pizza3}${extrasTexto}\n\nTotal: $${total.toFixed(2)}`;
+    document.getElementById("detallePedido").textContent = detallePedido;
 
-document.getElementById("continuarPago").addEventListener("click", function () {
-    const metodoPago = document.querySelector('input[name="metodoPago"]:checked').value;
-    const tipoServicio = document.querySelector('input[name="tipoServicio"]:checked').value;
+    mostrarSeccion("detalle");
+  });
 
-    if (tipoServicio === "Entrega a domicilio") {
-        document.getElementById("detalle-seccion").classList.remove("activa");
-        document.getElementById("domicilio-seccion").classList.add("activa");
+  document.getElementById("continuarPago").addEventListener("click", () => {
+    const metodo = document.querySelector("input[name='metodoPago']:checked");
+    const tipo = document.querySelector("input[name='tipoServicio']:checked");
+
+    if (!metodo || !tipo) {
+      alert("Selecciona método de pago y tipo de entrega.");
+      return;
+    }
+
+    metodoPago = metodo.value;
+    tipoEntrega = tipo.value;
+
+    if (tipoEntrega === "Entrega a domicilio") {
+      mostrarSeccion("domicilio");
     } else {
-        document.getElementById("detalle-seccion").classList.remove("activa");
-        if (metodoPago === "Efectivo") {
-            showEfectivoSection();
-        } else if (metodoPago === "Tarjeta") {
-            document.getElementById("tarjeta-seccion").classList.add("activa");
-        }
+      mostrarSeccion(metodoPago === "Tarjeta" ? "tarjeta" : "efectivo");
     }
+  });
+
+  document.getElementById("continuarDomicilio").addEventListener("click", () => {
+    mostrarSeccion(metodoPago === "Tarjeta" ? "tarjeta" : "efectivo");
+  });
+
+  document.getElementById("finalizarTarjeta").addEventListener("click", () => {
+    mostrarSeccion("pdf");
+  });
+
+  document.getElementById("finalizarEfectivo").addEventListener("click", () => {
+    mostrarSeccion("pdf");
+  });
+
+  document.getElementById("descargarPDF").addEventListener("click", () => {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    doc.text(detallePedido, 10, 10);
+    doc.save("pedido_pizza.pdf");
+  });
+
+  document.getElementById("salir").addEventListener("click", () => {
+    mostrarSeccion("despedida");
+  });
+
+  document.getElementById("comentarioForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const correo = document.getElementById("correo").value;
+    const mensaje = document.getElementById("mensaje").value;
+
+    emailjs
+      .send("service_45eirbe", "template_50ot8qj", {
+        to_email: correo,
+        message: mensaje,
+      })
+      .then(() => {
+        alert("Comentario enviado con éxito.");
+        document.getElementById("comentarioForm").reset();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("Error al enviar el comentario.");
+      });
+  });
 });
-
-document.getElementById("continuarDomicilio").addEventListener("click", function () {
-    document.getElementById("domicilio-seccion").classList.remove("activa");
-    const metodoPago = document.querySelector('input[name="metodoPago"]:checked').value;
-    if (metodoPago === "Efectivo") {
-        showEfectivoSection();
-    } else if (metodoPago === "Tarjeta") {
-        document.getElementById("tarjeta-seccion").classList.add("activa");
-    }
-});
-
-function showEfectivoSection() {
-    const total = parseFloat(document.getElementById("detallePedido").dataset.total);
-    const efectivoSection = document.getElementById("efectivo-seccion");
-    efectivoSection.innerHTML = `
-        <h1>Pago en Efectivo</h1>
-        <p>Total a pagar: $${total.toFixed(2)}</p>
-        <label for="billete">Ingrese con qué billete va a pagar:</label>
-        <input type="number" id="billete" name="billete" required>
-        <button type="button" id="calcularCambio">Calcular Cambio</button>
-        <p id="cambio"></p>
-        <button type="button" id="finalizarEfectivo">Finalizar Pedido</button>
-    `;
-    efectivoSection.classList.add("activa");
-    document.getElementById("calcularCambio").addEventListener("click", function () {
-        const billete = parseFloat(document.getElementById("billete").value);
-        const cambio = billete - total;
-        if (cambio >= 0) {
-            document.getElementById("cambio").textContent = `Cambio: $${cambio.toFixed(2)}`;
-
-        } else {
-            document.getElementById("cambio").textContent = "El billete no cubre el monto total.";
-        }
-    });
-    document.getElementById("finalizarEfectivo").addEventListener("click", function () {
-        alert("Gracias por tu pedido. El pago se realizará al momento de la entrega o consumo.");
-    });
-}
-
-document.getElementById("finalizarTarjeta").addEventListener("click", function () {
-    alert("Pago con tarjeta realizado con éxito. ¡Gracias por tu pedido!");
-})

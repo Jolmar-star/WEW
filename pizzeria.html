@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Pedido de Pizza</title>
+  <style>
+    body {
+      background-color: #FFAA4D;
+      font-family: 'Arial', sans-serif;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .seccion {
+      display: none;
+    }
+
+    .activa {
+      display: block;
+    }
+
+    input, select, textarea {
+      margin: 5px 0;
+      padding: 5px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #fff;
+      border: 2px solid #333;
+      cursor: pointer;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js"></script>
+</head>
+<body>
+
+  <!-- Sección inicio -->
+  <div id="inicio" class="seccion activa">
+    <h1>Bienvenido a Pizza Rápida</h1>
+    <button id="comenzar">Comenzar pedido</button>
+  </div>
+
+  <!-- Sección formulario -->
+  <div id="formulario-seccion" class="seccion">
+    <h2>Ingresa tu pedido</h2>
+    <label>Nombre: <input type="text" id="nombre"></label><br>
+    <label>Fecha: <input type="date" id="Fecha"></label><br>
+
+    <label for="Pizza1">Pizza 1:</label>
+    <select id="Pizza1" name="Pizza1">
+      <option value="10">Mexicana $10</option>
+      <option value="12">Pepperoni $12</option>
+      <option value="11">Hawaiana $11</option>
+    </select><br>
+
+    <label for="Pizza2">Pizza 2:</label>
+    <select id="Pizza2" name="Pizza2">
+      <option value="10">Mexicana $10</option>
+      <option value="12">Pepperoni $12</option>
+      <option value="11">Hawaiana $11</option>
+    </select><br>
+
+    <label for="Pizza3">Pizza 3:</label>
+    <select id="Pizza3" name="Pizza3">
+      <option value="10">Mexicana $10</option>
+      <option value="12">Pepperoni $12</option>
+      <option value="11">Hawaiana $11</option>
+    </select><br>
+
+    <label><input type="checkbox" id="queso1"> Extra Queso (+$20)</label><br>
+    <label><input type="checkbox" id="refresco"> Refresco (+$15)</label><br>
+    <label><input type="checkbox" id="orilla"> Orilla de Queso (+$34)</label><br>
+    <label><input type="checkbox" id="papas"> Papas (+$50)</label><br>
+    <button id="calcular">Calcular pedido</button>
+  </div>
+
+  <!-- Sección detalle -->
+  <div id="detalle-seccion" class="seccion">
+    <h2>Detalle del Pedido</h2>
+    <pre id="detallePedido"></pre>
+
+    <h3>Método de Pago:</h3>
+    <label><input type="radio" name="metodoPago" value="Tarjeta"> Tarjeta</label>
+    <label><input type="radio" name="metodoPago" value="Efectivo"> Efectivo</label>
+
+    <h3>Tipo de Entrega:</h3>
+    <label><input type="radio" name="tipoServicio" value="Recoger"> Recoger en tienda</label>
+    <label><input type="radio" name="tipoServicio" value="Entrega a domicilio"> Entrega a domicilio</label>
+
+    <button id="continuarPago">Continuar</button>
+  </div>
+
+  <!-- Sección tarjeta -->
+  <div id="tarjeta-seccion" class="seccion">
+    <h2>Pago con Tarjeta</h2>
+    <label>Número: <input type="text"></label><br>
+    <label>Expira: <input type="text"></label><br>
+    <label>CVC: <input type="text"></label><br>
+    <button id="finalizarTarjeta">Finalizar</button>
+  </div>
+
+  <!-- Sección efectivo -->
+  <div id="efectivo-seccion" class="seccion">
+    <h2>Pago en Efectivo</h2>
+    <p>Tu pedido se pagará al momento de la entrega o recolección.</p>
+    <button id="finalizarEfectivo">Finalizar</button>
+  </div>
+
+  <!-- Sección domicilio -->
+  <div id="domicilio-seccion" class="seccion">
+    <h2>Dirección para entrega</h2>
+    <label>Dirección: <input type="text"></label><br>
+    <label>Teléfono: <input type="text"></label><br>
+    <button id="continuarDomicilio">Continuar</button>
+  </div>
+
+  <!-- Sección PDF y Comentarios -->
+  <div id="pdf-opciones" class="seccion">
+    <h2>¿Deseas descargar tu pedido en PDF?</h2>
+    <button id="descargarPDF">Sí, descargar PDF</button>
+    <button id="salir">Salir</button>
+
+    <h3>Déjanos un comentario</h3>
+    <form id="comentarioForm">
+      <label for="correo">Tu correo electrónico:</label><br>
+      <input type="email" id="correo" name="to_email" required><br>
+
+      <label for="mensaje">Comentario:</label><br>
+      <textarea id="mensaje" name="message" rows="4" cols="40" required></textarea><br>
+
+      <button type="submit">Enviar comentario</button>
+    </form>
+  </div>
+
+  <!-- Sección despedida -->
+  <div id="despedida" class="seccion">
+    <h2>¡Gracias por tu pedido!</h2>
+    <p>Vuelve pronto.</p>
+  </div>
+
+  <script src="script.js" type="module"></script>
+</body>
+</html> 
