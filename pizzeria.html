@@ -1,156 +1,338 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Pedido de Pizza</title>
-  <style>
-    body {
-      background-color: #FFAA4D;
-      font-family: 'Arial', sans-serif;
-      color: #333;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
+    <title>Pedido de Pizza</title>
+    <style>
+        body {
+            background-color: #FFAA4D;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        h1, h2, h3 {
+            color: #4B2E03;
+        }
 
-    .seccion {
-      display: none;
-    }
+        .seccion {
+            display: none;
+        }
 
-    .activa {
-      display: block;
-    }
+        .activa {
+            display: block;
+        }
 
-    input, select, textarea {
-      margin: 5px 0;
-      padding: 5px;
-    }
+        #bienvenida {
+            background-color: #FF7F32;
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+        }
 
-    button {
-      margin-top: 10px;
-      padding: 10px 20px;
-      background-color: #fff;
-      border: 2px solid #333;
-      cursor: pointer;
-    }
+        #formulario-seccion form {
+            display: grid;
+            gap: 10px;
+        }
 
-    img {
-      max-width: 100%;
-      height: auto;
-    }
-  </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js"></script>
+        label {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        input[type="text"], select {
+            padding: 10px;
+            font-size: 1rem;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            width: 100%;
+        }
+
+        .checkbox-container {
+            display: grid;
+            gap: 10px;
+            justify-items: start;
+        }
+
+        .checkbox-container input {
+            margin-right: 10px;
+        }
+
+        button {
+            background-color: #FF7F32;
+            color: white;
+            font-size: 1rem;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #FF4F1F;
+        }
+
+        img {
+            width: 100%;
+            max-width: 200px;
+            margin: 10px auto;
+            display: block;
+        }
+
+        .detalle-pedido ul {
+            text-align: left;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .detalle-pedido li {
+            margin-bottom: 5px;
+        }
+
+        .detalle-pedido strong {
+            color: #FF7F32;
+        }
+
+        .seccion input[type="radio"] {
+            margin-right: 10px;
+        }
+    </style>
+   
+
 </head>
 <body>
+    <div id="bienvenida" class="seccion activa">
+        <h1>¡Bienvenido A Pizzeria jolmar!</h1>
+        <p>Gracias por tu preferencia</p>
+        <button id="comenzar">Comenzar pedido</button>
+        <br>
+        <img src="mari.jpg" alt="mari" style="border-radius: 8px;">
+    </div>
 
-  <!-- Sección inicio -->
-  <div id="inicio" class="seccion activa">
-    <h1>Bienvenido a Pizza Rápida</h1>
-    <button id="comenzar">Comenzar pedido</button>
-  </div>
+    <div id="formulario-seccion" class="seccion">
+        <h1>Pedidos de Pizza</h1>
+        <form id="formulario">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
 
-  <!-- Sección formulario -->
-  <div id="formulario-seccion" class="seccion">
-    <h2>Ingresa tu pedido</h2>
-    <label>Nombre: <input type="text" id="nombre"></label><br>
-    <label>Fecha: <input type="date" id="Fecha"></label><br>
+            <label for="Fecha">Fecha:</label>
+            <input type="text" id="Fecha" name="Fecha" required>
 
-    <label for="Pizza1">Pizza 1:</label>
-    <select id="Pizza1" name="Pizza1">
-      <option value="10">Mexicana $10</option>
-      <option value="12">Pepperoni $12</option>
-      <option value="11">Hawaiana $11</option>
-    </select><br>
+            <label for="Pizza1">Pizza 1:</label>
+            <select id="Pizza1" name="Pizza1">
+                <option value="10">Mexicana $10</option>
+                <option value="12">Pepperoni $12</option>
+                <option value="11">Hawaiana $11</option>
+            </select>
 
-    <label for="Pizza2">Pizza 2:</label>
-    <select id="Pizza2" name="Pizza2">
-      <option value="10">Mexicana $10</option>
-      <option value="12">Pepperoni $12</option>
-      <option value="11">Hawaiana $11</option>
-    </select><br>
+            <label for="Pizza2">Pizza 2:</label>
+            <select id="Pizza2" name="Pizza2">
+                <option value="10">Mexicana $10</option>
+                <option value="12">Pepperoni $12</option>
+                <option value="11">Hawaiana $11</option>
+            </select>
 
-    <label for="Pizza3">Pizza 3:</label>
-    <select id="Pizza3" name="Pizza3">
-      <option value="10">Mexicana $10</option>
-      <option value="12">Pepperoni $12</option>
-      <option value="11">Hawaiana $11</option>
-    </select><br>
+            <label for="Pizza3">Pizza 3:</label>
+            <select id="Pizza3" name="Pizza3">
+                <option value="10">Mexicana $10</option>
+                <option value="12">Pepperoni $12</option>
+                <option value="11">Hawaiana $11</option>
+            </select>
 
-    <label><input type="checkbox" id="queso1"> Extra Queso (+$20)</label><br>
-    <label><input type="checkbox" id="refresco"> Refresco (+$15)</label><br>
-    <label><input type="checkbox" id="orilla"> Orilla de Queso (+$34)</label><br>
-    <label><input type="checkbox" id="papas"> Papas (+$50)</label><br>
-    <button id="calcular">Calcular pedido</button>
-  </div>
+            <h3>Extras en tu pedido:</h3>
+            <div class="checkbox-container">
+                <label><input type="checkbox" id="queso1" value="20"> + Queso $20</label>
+                <label><input type="checkbox" id="orilla" value="34"> Orilla de doritos $34</label>
+                <label><input type="checkbox" id="refresco" value="15"> Refresco $15</label>
+                <label><input type="checkbox" id="papas" value="50"> Papas $50</label>
+            </div>
 
-  <!-- Sección detalle -->
-  <div id="detalle-seccion" class="seccion">
-    <h2>Detalle del Pedido</h2>
-    <pre id="detallePedido"></pre>
+            <button type="button" id="calcular">Total</button>
+            <img src="pizzas1.jpg" alt="Pizza1">
+        </form>
+    </div>
 
-    <h3>Método de Pago:</h3>
-    <label><input type="radio" name="metodoPago" value="Tarjeta"> Tarjeta</label>
-    <label><input type="radio" name="metodoPago" value="Efectivo"> Efectivo</label>
+    <div id="detalle-seccion" class="seccion">
+        <h2>Tu pedido</h2>
+        <p id="detallePedido" class="detalle-pedido"></p>
 
-    <h3>Tipo de Entrega:</h3>
-    <label><input type="radio" name="tipoServicio" value="Recoger"> Recoger en tienda</label>
-    <label><input type="radio" name="tipoServicio" value="Entrega a domicilio"> Entrega a domicilio</label>
+        <h3>Forma de Pago:</h3>
+        <label><input type="radio" name="metodoPago" value="Efectivo" id="pagoEfectivo" required> Efectivo</label>
+        <label><input type="radio" name="metodoPago" value="Tarjeta" id="pagoTarjeta" required> Tarjeta</label>
 
-    <button id="continuarPago">Continuar</button>
-  </div>
+        <h3>Manera de entrega:</h3>
+        <label><input type="radio" name="tipoServicio" value="Entrega a domicilio" id="entregaDomicilio" required> Domicilio</label>
+        <label><input type="radio" name="tipoServicio" value="Consumo en local" id="consumoLocal" required> Local</label>
 
-  <!-- Sección tarjeta -->
-  <div id="tarjeta-seccion" class="seccion">
-    <h2>Pago con Tarjeta</h2>
-    <label>Número: <input type="text"></label><br>
-    <label>Expira: <input type="text"></label><br>
-    <label>CVC: <input type="text"></label><br>
-    <button id="finalizarTarjeta">Finalizar</button>
-  </div>
+        <button type="button" id="continuarPago">Continuar</button>
+    </div>
 
-  <!-- Sección efectivo -->
-  <div id="efectivo-seccion" class="seccion">
-    <h2>Pago en Efectivo</h2>
-    <p>Tu pedido se pagará al momento de la entrega o recolección.</p>
-    <button id="finalizarEfectivo">Finalizar</button>
-  </div>
+    <div id="domicilio-seccion" class="seccion">
+        <h1>Datos para Entrega a Domicilio</h1>
+        <form id="domicilioForm">
+            <label for="direccion">Dirección:</label>
+            <input type="text" id="direccion" name="direccion" required>
 
-  <!-- Sección domicilio -->
-  <div id="domicilio-seccion" class="seccion">
-    <h2>Dirección para entrega</h2>
-    <label>Dirección: <input type="text"></label><br>
-    <label>Teléfono: <input type="text"></label><br>
-    <button id="continuarDomicilio">Continuar</button>
-  </div>
+            <label for="telefono">Teléfono:</label>
+            <input type="text" id="telefono" name="telefono" required>
 
-  <!-- Sección PDF y Comentarios -->
-  <div id="pdf-opciones" class="seccion">
-    <h2>¿Deseas descargar tu pedido en PDF?</h2>
-    <button id="descargarPDF">Sí, descargar PDF</button>
-    <button id="salir">Salir</button>
+            <button type="button" id="continuarDomicilio">Continuar al Pago</button>
+        </form>
+    </div>
 
-    <h3>Déjanos un comentario</h3>
-    <form id="comentarioForm">
-      <label for="correo">Tu correo electrónico:</label><br>
-      <input type="email" id="correo" name="to_email" required><br>
+    <div id="tarjeta-seccion" class="seccion">
+        <h1>Pago con Tarjeta</h1>
+        <form>
+            <label for="numeroTarjeta">Número de Tarjeta:</label>
+            <input type="text" id="numeroTarjeta" required>
 
-      <label for="mensaje">Comentario:</label><br>
-      <textarea id="mensaje" name="message" rows="4" cols="40" required></textarea><br>
+            <label for="fechaExp">Fecha de Expiración:</label>
+            <input type="text" id="fechaExp" placeholder="MM/AA" required>
 
-      <button type="submit">Enviar comentario</button>
-    </form>
-  </div>
+            <label for="cvv">CVV:</label>
+            <input type="text" id="cvv" required>
 
-  <!-- Sección despedida -->
-  <div id="despedida" class="seccion">
-    <h2>¡Gracias por tu pedido!</h2>
-    <p>Vuelve pronto.</p>
-  </div>
+            <button type="button" id="finalizarTarjeta">Finalizar Pago</button>
+            <button id="generarPDFEfectivo">Generar PDF de </button>
+            
 
-  <script src="script.js" type="module"></script>
+           
+            
+        </form>
+    </div>
+
+    <div id="efectivo-seccion" class="seccion">
+        <h1>Pago en Efectivo</h1>
+        <p>Gracias por tu preferencia, se entrega en ventanilla y ahi mismo realizas el pago</p>
+        <button type="button" id="finalizarEfectivo">Finalizar Pedido</button>
+        <button id="generarPDF">Generar PDF de </button>
+
+      
+    </div>
+
+    <script>
+        document.getElementById("comenzar").addEventListener("click", function () {
+            document.getElementById("bienvenida").classList.remove("activa");
+            document.getElementById("formulario-seccion").classList.add("activa");
+        });
+
+        document.getElementById("calcular").addEventListener("click", function () {
+            const nombre = document.getElementById("nombre").value;
+            const Fecha = document.getElementById("Fecha").value;
+
+            // Obtener valores seleccionados de las pizzas
+            const pizza1 = parseFloat(document.getElementById("Pizza1").value) || 0;
+            const pizza2 = parseFloat(document.getElementById("Pizza2").value) || 0;
+            const pizza3 = parseFloat(document.getElementById("Pizza3").value) || 0;
+            const queso1 = document.getElementById("queso1").checked ? 20 : 0;
+            const refresco = document.getElementById("refresco").checked ? 15 : 0;
+            const orilla = document.getElementById("orilla").checked ? 34 : 0;
+            const papas = document.getElementById("papas").checked ? 50 : 0;
+
+            const total = pizza1 + pizza2 + pizza3 + papas + refresco + orilla + queso1;
+
+            // Mostrar detalles del pedido
+            document.getElementById("detalle-seccion").classList.add("activa");
+            document.getElementById("formulario-seccion").classList.remove("activa");
+            document.getElementById("detallePedido").innerHTML = `
+                <strong>Nombre:</strong> ${nombre}<br>
+                <strong>Fecha:</strong> ${Fecha}<br>
+                <strong>Productos:</strong> 
+                <ul>
+                    <li>Pizza 1 ($${pizza1.toFixed(2)})</li>
+                    <li>Pizza 2 ($${pizza2.toFixed(2)})</li>
+                    <li>Pizza 3 ($${pizza3.toFixed(2)})</li>
+                    <li>Papas ($${papas.toFixed(2)})</li>
+                    <li>Queso Extra ($${queso1.toFixed(2)})</li>
+                    <li>Refresco ($${refresco.toFixed(2)})</li>
+                    <li>Orilla Rellena ($${orilla.toFixed(2)})</li>
+                </ul>
+                <strong>Total:</strong> $${total.toFixed(2)}
+            `;
+        });
+
+        document.getElementById("continuarPago").addEventListener("click", function () {
+            const metodoPago = document.querySelector('input[name="metodoPago"]:checked').value;
+            const tipoServicio = document.querySelector('input[name="tipoServicio"]:checked').value;
+
+            if (tipoServicio === "Entrega a domicilio") {
+                document.getElementById("detalle-seccion").classList.remove("activa");
+                document.getElementById("domicilio-seccion").classList.add("activa");
+            } else {
+                document.getElementById("detalle-seccion").classList.remove("activa");
+                if (metodoPago === "Efectivo") {
+                    document.getElementById("efectivo-seccion").classList.add("activa");
+                } else if (metodoPago === "Tarjeta") {
+                    document.getElementById("tarjeta-seccion").classList.add("activa");
+                }
+            }
+        });
+
+        document.getElementById("continuarDomicilio").addEventListener("click", function(){
+            document.getElementById("domicilio-seccion").classList.remove("activa");
+            const metodoPago = document.querySelector('input[name="metodoPago"]:checked').value;
+            if(metodoPago === "Efectivo"){
+                document.getElementById("efectivo-seccion").classList.add("activa");
+            } else if(metodoPago === "Tarjeta"){
+                document.getElementById("tarjeta-seccion").classList.add("activa");
+            }
+        });
+
+        document.getElementById("finalizarTarjeta").addEventListener("click", function () {
+            alert("Pago con tarjeta realizado con éxito. ¡Gracias por tu pedido!");
+        });
+        
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script>
+        document.getElementById("generarPDF").addEventListener("click", function () {
+    generarPDF();  
+});
+
+document.getElementById("generarPDFEfectivo").addEventListener("click", function () {
+    generarPDF();  
+});
+
+function generarPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    
+    const nombre = document.getElementById("nombre").value;
+    const fecha = document.getElementById("Fecha").value;
+    const pizza1 = document.getElementById("Pizza1").options[document.getElementById("Pizza1").selectedIndex].text;
+    const pizza2 = document.getElementById("Pizza2").options[document.getElementById("Pizza2").selectedIndex].text;
+    const pizza3 = document.getElementById("Pizza3").options[document.getElementById("Pizza3").selectedIndex].text;
+    const queso1 = document.getElementById("queso1").checked ? 20 : 0;
+    const refresco = document.getElementById("refresco").checked ? 15 : 0;
+    const orilla = document.getElementById("orilla").checked ? 34 : 0;
+    const papas = document.getElementById("papas").checked ? 50 : 0;
+
+    const total = parseFloat(pizza1.split('$')[1]) + parseFloat(pizza2.split('$')[1]) + parseFloat(pizza3.split('$')[1]) + queso1 + refresco + orilla + papas;
+
+    
+   
+    doc.text(Nombre: ${nombre}, 10, 20);
+    doc.text(Fecha: ${fecha}, 10, 30);
+    doc.text(Productos:, 10, 40);
+    doc.text(- ${pizza1}, 10, 50);
+    doc.text(- ${pizza2}, 10, 60);
+    doc.text(- ${pizza3}, 10, 70);
+    doc.text(- Queso Extra: $${queso1}, 10, 80);
+    doc.text(- Refresco: $${refresco}, 10, 90);
+    doc.text(- Orilla Rellena: $${orilla}, 10, 100);
+    doc.text(- Papas: $${papas}, 10, 110);
+    doc.text(Total: $${total.toFixed(2)}, 10, 120);
+    doc.save('pedido_pizza.pdf');
+}
+
+    </script>
+    
 </body>
-</html> 
+</html>
