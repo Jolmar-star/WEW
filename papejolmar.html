@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <h1>BIENVENIDO A JOLMAR <br> </h1><br>
+    <h3>Al escoger los productos favor de deslizar hasta abajo para el pago requerido, al igual que no olvide checar los demas apartados para estar informado </h3>
+    <title>Ejemplo de Apartados y Productos</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffe6e6;
+        }
+        nav {
+            background-color: #ff99cc;
+            padding: 1em;
+            text-align: center;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .apartado {
+            display: none;
+            margin-top: 20px;
+        }
+        .apartado.activo {
+            display: block;
+        }
+        .productos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        .producto {
+            background-color: #ffffff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .producto img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 10px;
+            border-radius: 6px;
+        }
+        #carrito-contenido {
+            background-color: #ffffff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            min-height: 60px;
+        }
+        .pago-form, .domicilio-form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 1px 1px 8px #ddd;
+            max-width: 400px;
+            margin: 20px auto;
+        }
+        .pago-form input, .domicilio-form input {
+            width: 100%;
+            padding: 8px;
+            margin: 7px 0 14px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 1em;
+        }
+        button {
+            background-color: #ff99cc;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button.eliminar {
+            background-color: #ff6868;
+            margin-left: 10px;
+        }
+        #generar-pdf {
+            margin-top: 20px;
+        }
+        /* Comentarios */
+        #comentarios-formulario {
+            max-width: 400px;
+            margin: 0 auto 25px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 1px 1px 8px #ddd;
+        }
+        #comentarios-formulario textarea {
+            width: 100%;
+            min-height: 70px;
+            resize: vertical;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            font-size: 1em;
+            padding: 8px;
+        }
+        #comentarios-lista {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 1px 1px 8px #ddd;
+            padding: 15px 20px 10px 20px;
+        }
+        .comentario {
+            border-bottom: 1px solid #eee;
+            padding: 8px 0;
+            font-size: 1em;
+        }
+        .comentario:last-child {
+            border-bottom: none;
+        }
+        .resumen-compra {
+            background: #fffbe6;
+            border: 1px solid #ffe066;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px auto;
+            max-width: 400px;
+            box-shadow: 1px 1px 5px #f8e5c0;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#" onclick="mostrarApartado('productos')">Productos</a>
+        <a href="#" onclick="mostrarApartado('servicios')">Servicios</a>
+        <a href="#" onclick="mostrarApartado('acerca')">Acerca de</a>
+        <a href="#" onclick="mostrarApartado('contacto')">Contacto</a>
+        <a href="#" onclick="mostrarApartado('faq')">Preguntas Frecuentes</a>
+        <a href="#" onclick="mostrarApartado('comentarios')">Enviar Comentario</a>
+    </nav>
+
+    <!-- Apartado Productos -->
+    <div id="productos" class="apartado">
+        <h2>Productos</h2>
+        <div id="carrito-contenido"></div>
+        <div class="productos-grid"></div>
+        <div id="resumen-compra" class="resumen-compra" style="display:none;"></div>
+        <form id="domicilio-form" class="domicilio-form" style="display:none;">
+            <h3>Servicio a domicilio</h3>
+            <label for="direccion">Dirección de entrega:</label>
+            <input type="text" id="direccion" name="direccion" required>
+            <button type="submit">Guardar dirección</button>
+            <div id="direccion-guardada" style="color:green;margin-top:8px;"></div>
+        </form>
+        <form id="pago-form" class="pago-form" style="display:none;">
+            <h3>Método de pago (Tarjeta)</h3>
+            <label for="nombre-tarjeta">Nombre en la tarjeta:</label>
+            <input type="text" id="nombre-tarjeta" required>
+            <label for="numero-tarjeta">Número de tarjeta:</label>
+            <input type="text" id="numero-tarjeta" maxlength="19" pattern="\d{16,19}" required>
+            <label for="fecha-exp">Fecha de expiración (MM/AA):</label>
+            <input type="text" id="fecha-exp" required placeholder="MM/AA" maxlength="5" pattern="\d{2}/\d{2}">
+            <label for="cvv">CVV:</label>
+            <input type="text" id="cvv" maxlength="4" required pattern="\d{3,4}">
+            <button type="submit">Pagar</button>
+            <div id="pago-exito" style="color:green;margin-top:8px;"></div>
+        </form>
+        <button id="generar-pdf" style="display:none;">Generar PDF</button>
+    </div>
+
+    <!-- Apartado Servicios -->
+    <div id="servicios" class="apartado">
+        <h2>Servicios</h2>
+        <p>El servicio JOLMAR cuenta con un servicio a domicilio gratuito, con una garantía de 3 días contando a partir de la llegada del 
+            producto, siempre y cuando cuente con el PDF que aparece en la página web.</p>
+            <p>si el producto esta dañdo y pasa de tres dias ya no podremos hacer nada por el ususario</p>
+            <br></br>
+        <p>Para poder atender su garantía favor de dejar el comentario con su correo electrónico, número telefónico
+            o alguna otra red social para poder comunicarnos con usted lo antes posible y poder cambiar el producto dañado.</p>
+            <p>Al realizar un comentario favor de no dejar una apinio ofenciva, si el producto o la pagina no es de su agrado
+                con gusto lo atenderemos lo antes posible .
+            </p> <br>
+            
+
+    </div>
+
+    <!-- Apartado Acerca de -->
+    <div id="acerca" class="apartado">
+        <h2>Acerca de</h2>
+        <p>Los productos vienen importados desde Calle:Miguel Hidalgo, AV:Matamoros, Tizayuca Hidalgo S/N </p>
+    </div>
+
+    <!-- Apartado Contacto -->
+    <div id="contacto" class="apartado">
+        <h2>Contacto</h2>
+        <p>No. telefonico: 55867728899 </p><br>
+          <p>Correo electronico: monterjolette7@gmail.com </p><br>
+    </div>
+
+    <!-- Apartado FAQ -->
+    <div id="faq" class="apartado">
+        <h2>Preguntas Frecuentes</h2>
+        <p>¿Es de buena calidad? si ya que escogemos lo mehor para nuestros clientes</p><br>
+          <p>¿Cuanto tarda en llegar el producto? De 3 a 7 dias segun la providencia</p><br>
+          <p>¿Acepta pagos en efectivo? Solo si la  compra fue relizada en nuestra tienda fisica.</p><br>
+    </div>
+
+    <!-- Apartado Comentarios -->
+    <div id="comentarios" class="apartado">
+        <h2>Enviar Comentario</h2>
+        <form id="comentarios-formulario">
+            <label for="comentario">Tu comentario:</label><br>
+            <textarea id="comentario" name="comentario" required></textarea><br>
+            <button type="submit">Enviar</button>
+        </form>
+        <div id="comentarios-lista">
+            <h3>Comentarios enviados:</h3>
+            <!-- Comentarios se mostrarán aquí -->
+        </div>
+    </div>
+
+    <script>
+    // Navegación entre apartados
+    function mostrarApartado(id) {
+        document.querySelectorAll('.apartado').forEach(el => el.classList.remove('activo'));
+        document.getElementById(id).classList.add('activo');
+    }
+    window.onload = () => mostrarApartado('productos');
+
+    // Productos y carrito con imágenes específicas
+    const productos = [
+        { nombre: "Cuaderno", precio: 50, imagen: "https://m.media-amazon.com/images/I/61p4kZkFCEL._AC_SY879_.jpg" },
+        { nombre: "Lápices", precio: 10, imagen: "https://m.media-amazon.com/images/I/61t7f1d6JHL._AC_SY679_.jpg" },
+        { nombre: "Borrador", precio: 5, imagen: "https://m.media-amazon.com/images/I/61R-1aN4rXL._AC_SY879_.jpg" },
+        { nombre: "Regla", precio: 15, imagen: "https://m.media-amazon.com/images/I/71E5pI9p5LL._AC_SY879_.jpg" },
+        { nombre: "Colores", precio: 60, imagen: "https://m.media-amazon.com/images/I/71NL5f2R8vL._AC_SY879_.jpg" },
+        { nombre: "Marcadores", precio: 20, imagen: "https://m.media-amazon.com/images/I/81zBBp-bh8L._AC_SY879_.jpg" },
+        { nombre: "Papel", precio: 30, imagen: "https://m.media-amazon.com/images/I/61Xr1m9Qm3L._AC_SY879_.jpg" },
+        { nombre: "Tijeras", precio: 25, imagen: "https://m.media-amazon.com/images/I/61c4pRL2yrL._AC_SY879_.jpg" }
+    ];
+    let carrito = [];
+    let direccionGuardada = "";
+    let pagoExitoso = false;
+    let datosPago = {};
+    const productosGrid = document.querySelector(".productos-grid");
+    const carritoContenido = document.getElementById("carrito-contenido");
+    const resumenCompra = document.getElementById("resumen-compra");
+    const domicilioForm = document.getElementById("domicilio-form");
+    const direccionInput = document.getElementById("direccion");
+    const direccionMsg = document.getElementById("direccion-guardada");
+    const pagoForm = document.getElementById("pago-form");
+    const pagoExito = document.getElementById("pago-exito");
+    const botonPDF = document.getElementById("generar-pdf");
+
+    // Mostrar productos en la página
+    productos.forEach((producto, idx) => {
+        const productoHTML = `
+            <div class="producto" data-index="${idx}">
+                <img src="${producto.imagen}" alt="${producto.nombre}">
+                <h3>${producto.nombre}</h3>
+                <p>Precio: $${producto.precio}</p>
+                <button class="agregar-carrito">Agregar al carrito</button>
+            </div>
+        `;
+        productosGrid.innerHTML += productoHTML;
+    });
+
+    // Agregar evento a los botones
+    document.querySelectorAll(".agregar-carrito").forEach((button, idx) => {
+        button.addEventListener("click", () => {
+            const producto = productos[idx];
+            const itemEnCarrito = carrito.find(p => p.nombre === producto.nombre);
+            if (itemEnCarrito) {
+                itemEnCarrito.cantidad += 1;
+            } else {
+                carrito.push({...producto, cantidad: 1});
+            }
+            actualizarCarrito();
+        });
+    });
+
+    function actualizarCarrito() {
+        if (carrito.length === 0) {
+            carritoContenido.innerHTML = "<p>El carrito está vacío.</p>";
+            resumenCompra.style.display = "none";
+            domicilioForm.style.display = "none";
+            pagoForm.style.display = "none";
+            botonPDF.style.display = "none";
+            return;
+        }
+        carritoContenido.innerHTML = carrito.map(item => `
+            <div>
+                ${item.nombre} x${item.cantidad} - $${item.precio * item.cantidad}
+                <button class="eliminar" data-producto="${item.nombre}">Eliminar</button>
+            </div>
+        `).join("");
+        document.querySelectorAll(".eliminar").forEach(b => {
+            b.addEventListener("click", e => {
+                const nombre = e.target.getAttribute("data-producto");
+                carrito = carrito.filter(item => item.nombre !== nombre);
+                actualizarCarrito();
+            });
+        });
+        mostrarResumenCompra();
+        domicilioForm.style.display = "block";
+        pagoForm.style.display = direccionGuardada ? "block" : "none";
+        botonPDF.style.display = "none";
+        pagoExito.textContent = "";
+    }
+
+    function mostrarResumenCompra() {
+        let total = carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
+        resumenCompra.innerHTML = "<h3>Resumen de compra</h3>" +
+            carrito.map(item => `<div>${item.nombre} x${item.cantidad} = $${item.precio * item.cantidad}</div>`).join("") +
+            `<hr><strong>Total: $${total}</strong>`;
+        resumenCompra.style.display = "block";
+    }
+
+    domicilioForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+        const direccion = direccionInput.value.trim();
+        if (direccion.length > 0) {
+            direccionGuardada = direccion;
+            direccionMsg.textContent = "¡Dirección guardada!";
+            pagoForm.style.display = "block";
+        }
+    });
+
+    pagoForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+        const nombre = document.getElementById("nombre-tarjeta").value.trim();
+        const numero = document.getElementById("numero-tarjeta").value.trim();
+        const fecha = document.getElementById("fecha-exp").value.trim();
+        const cvv = document.getElementById("cvv").value.trim();
+        if (nombre && numero.length >= 16 && fecha && cvv.length >= 3) {
+            datosPago = {
+                nombre,
+                numero: "**** **** **** " + numero.slice(-4),
+                fecha,
+            };
+            pagoExito.textContent = "¡Pago realizado con éxito!";
+            pagoExitoso = true;
+            botonPDF.style.display = "inline-block";
+        } else {
+            pagoExito.textContent = "Datos incorrectos. Revisa los campos.";
+        }
+    });
+
+    botonPDF.addEventListener("click", () => {
+        if(!pagoExitoso || !direccionGuardada) {
+            alert("Primero paga y pon tu dirección.");
+            return;
+        }
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        let y = 10;
+        doc.setFontSize(14);
+        doc.text("Ticket de compra JOLMAR", 10, y);
+        y += 10;
+        doc.setFontSize(12);
+        doc.text("Fecha: " + new Date().toLocaleString(), 10, y);
+        y += 10;
+        doc.text("Dirección de envío:", 10, y);
+        y += 8;
+        doc.text(direccionGuardada, 10, y);
+        y += 10;
+        doc.text("Productos:", 10, y);
+        y += 8;
+        let total = 0;
+        carrito.forEach(item => {
+            doc.text(`${item.nombre} x${item.cantidad} = $${item.precio * item.cantidad}`, 12, y);
+            y += 8;
+            total += item.precio * item.cantidad;
+        });
+        y += 5;
+        doc.text(`Total: $${total}`, 10, y);
+        y += 10;
+        doc.text("Pago realizado con:", 10, y);
+        y += 8;
+        doc.text(`Titular: ${datosPago.nombre || ""}`, 10, y);
+        y += 7;
+        doc.text(`Tarjeta: ${datosPago.numero || ""}`, 10, y);
+        y += 7;
+        doc.text(`Expira: ${datosPago.fecha || ""}`, 10, y);
+        doc.save("ticket-jolmar.pdf");
+    });
+
+    // Comentarios
+    const comentarios = [];
+    const formulario = document.getElementById("comentarios-formulario");
+    const comentariosLista = document.getElementById("comentarios-lista");
+
+    formulario.addEventListener("submit", function(e) {
+        e.preventDefault();
+        const texto = formulario.comentario.value.trim();
+        if (texto) {
+            comentarios.push(texto);
+            mostrarComentarios();
+            formulario.reset();
+        }
+    });
+
+    function mostrarComentarios() {
+        if (comentarios.length === 0) {
+            comentariosLista.innerHTML = "<h3>Comentarios enviados:</h3><p>No hay comentarios aún.</p>";
+            return;
+        }
+        comentariosLista.innerHTML = "<h3>Comentarios enviados:</h3>" +
+            comentarios.map(c => `<div class="comentario">${c}</div>`).join("");
+    }
+    mostrarComentarios();
+    </script>
+</body>
+</html>
