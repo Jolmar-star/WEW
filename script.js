@@ -1,97 +1,189 @@
-document.getElementById("comenzar").addEventListener("click", function () {
-    document.getElementById("bienvenida").classList.remove("activa");
-    document.getElementById("formulario-seccion").classList.add("activa");
-});
+// Navegación entre apartados
+function mostrarApartado(id) {
+    document.querySelectorAll('.apartado').forEach(el => el.classList.remove('activo'));
+    document.getElementById(id).classList.add('activo');
+}
+window.onload = () => mostrarApartado('productos');
 
-document.getElementById("calcular").addEventListener("click", function () {
-    const nombre = document.getElementById("nombre").value;
-    const Fecha = document.getElementById("Fecha").value;
+// Productos y carrito con imágenes específicas
+const productos = [
+    { nombre: "Cuaderno", precio: 50, imagen: "https://http2.mlstatic.com/D_NQ_NP_698724-MLM72077843473_102023-O.webp" },
+    { nombre: "Lápices", precio: 10, imagen: "https://production-tailoy-repo-magento-statics.s3.amazonaws.com/imagenes/872x872/productos/i/f/a/faber-castell-lapiz-tecnico-f-16152014-default-1.jpg" },
+    { nombre: "Borrador", precio: 5, imagen: "https://tse2.mm.bing.net/th/id/OIP.UUXoV9tk4tsI-ByuW2y77AAAAA?rs=1&pid=ImgDetMain" },
+    { nombre: "Regla", precio: 15, imagen: "https://down-br.img.susercontent.com/file/br-11134207-7r98o-lmyzn595pd3iaa" },
+    { nombre: "Colores", precio: 60, imagen: "https://http2.mlstatic.com/lapices-de-colores-prismacolor-escolar-36-piezas-D_NQ_NP_134405-MLM20868023209_082016-F.jpg" },
+    { nombre: "Marcadores", precio: 20, imagen: "https://janamx.com/cdn/shop/products/StabiloPastel3-min.jpg?v=1674840145&width=1445" },
+    { nombre: "Hojas de Color", precio: 30, imagen: "https://th.bing.com/th/id/R.316d183917d65ffd177ef4dad3481e78?rik=FByG9FzSZWjCZw&pid=ImgRaw&r=0" },
+    { nombre: "Tijeras", precio: 25, imagen: "https://giselestephanie.b-cdn.net/wp-content/uploads/2024/01/0005291.jpg" }
+];
+let carrito = [];
+let direccionGuardada = "";
+let pagoExitoso = false;
+let datosPago = {};
+const productosGrid = document.querySelector(".productos-grid");
+const carritoContenido = document.getElementById("carrito-contenido");
+const resumenCompra = document.getElementById("resumen-compra");
+const domicilioForm = document.getElementById("domicilio-form");
+const direccionInput = document.getElementById("direccion");
+const direccionMsg = document.getElementById("direccion-guardada");
+const pagoForm = document.getElementById("pago-form");
+const pagoExito = document.getElementById("pago-exito");
+const botonPDF = document.getElementById("generar-pdf");
 
-    const pizza1 = parseFloat(document.getElementById("Pizza1").value);
-    const pizza2 = parseFloat(document.getElementById("Pizza2").value);
-    const pizza3 = parseFloat(document.getElementById("Pizza3").value);
-
-    const complementos = document.querySelectorAll('.checkbox-container input[type="checkbox"]:checked');
-    let complementosTotal = 0;
-    let complementosDetalle = [];
-
-    complementos.forEach((complemento) => {
-        complementosTotal += parseFloat(complemento.value);
-        complementosDetalle.push(complemento.nextElementSibling.textContent);
-    });
-
-    const total = pizza1 + pizza2 + pizza3 + complementosTotal;
-    document.getElementById("detalle-seccion").classList.add("activa");
-    document.getElementById("formulario-seccion").classList.remove("activa");
-    document.getElementById("detallePedido").innerHTML = `
-        <strong>Nombre:</strong> ${nombre}<br>
-        <strong>Fecha:</strong> ${Fecha}<br>
-        <strong>Productos:</strong> 
-        <ul>
-            <li>Pizza Mexicana ($${pizza1.toFixed(2)})</li>
-            <li>Pizza Pepperoni ($${pizza2.toFixed(2)})</li>
-            <li>Pizza Hawaiana ($${pizza3.toFixed(2)})</li>
-        </ul>
-        <strong>Complementos:</strong> ${complementosDetalle.join(", ")}<br>
-        <strong>Total:</strong> $${total.toFixed(2)}
+// Mostrar productos en la página
+productos.forEach((producto, idx) => {
+    const productoHTML = `
+        <div class="producto" data-index="${idx}">
+            <img src="${producto.imagen}" alt="${producto.nombre}">
+            <h3 class="info-rosa">${producto.nombre}</h3>
+            <p class="info-rosa">Precio: $${producto.precio}</p>
+            <button class="agregar-carrito">Agregar al carrito</button>
+        </div>
     `;
-    document.getElementById("detallePedido").dataset.total = total;
+    productosGrid.innerHTML += productoHTML;
 });
 
-document.getElementById("continuarPago").addEventListener("click", function () {
-    const metodoPago = document.querySelector('input[name="metodoPago"]:checked').value;
-    const tipoServicio = document.querySelector('input[name="tipoServicio"]:checked').value;
-
-    if (tipoServicio === "Entrega a domicilio") {
-        document.getElementById("detalle-seccion").classList.remove("activa");
-        document.getElementById("domicilio-seccion").classList.add("activa");
-    } else {
-        document.getElementById("detalle-seccion").classList.remove("activa");
-        if (metodoPago === "Efectivo") {
-            showEfectivoSection();
-        } else if (metodoPago === "Tarjeta") {
-            document.getElementById("tarjeta-seccion").classList.add("activa");
-        }
-    }
-});
-
-document.getElementById("continuarDomicilio").addEventListener("click", function () {
-    document.getElementById("domicilio-seccion").classList.remove("activa");
-    const metodoPago = document.querySelector('input[name="metodoPago"]:checked').value;
-    if (metodoPago === "Efectivo") {
-        showEfectivoSection();
-    } else if (metodoPago === "Tarjeta") {
-        document.getElementById("tarjeta-seccion").classList.add("activa");
-    }
-});
-
-function showEfectivoSection() {
-    const total = parseFloat(document.getElementById("detallePedido").dataset.total);
-    const efectivoSection = document.getElementById("efectivo-seccion");
-    efectivoSection.innerHTML = `
-        <h1>Pago en Efectivo</h1>
-        <p>Total a pagar: $${total.toFixed(2)}</p>
-        <label for="billete">Ingrese con qué billete va a pagar:</label>
-        <input type="number" id="billete" name="billete" required>
-        <button type="button" id="calcularCambio">Calcular Cambio</button>
-        <p id="cambio"></p>
-        <button type="button" id="finalizarEfectivo">Finalizar Pedido</button>
-    `;
-    efectivoSection.classList.add("activa");
-    document.getElementById("calcularCambio").addEventListener("click", function () {
-        const billete = parseFloat(document.getElementById("billete").value);
-        const cambio = billete - total;
-        if (cambio >= 0) {
-            document.getElementById("cambio").textContent = Cambio: $${cambio.toFixed(2)};
+// Agregar evento a los botones
+document.querySelectorAll(".agregar-carrito").forEach((button, idx) => {
+    button.addEventListener("click", () => {
+        const producto = productos[idx];
+        const itemEnCarrito = carrito.find(p => p.nombre === producto.nombre);
+        if (itemEnCarrito) {
+            itemEnCarrito.cantidad += 1;
         } else {
-            document.getElementById("cambio").textContent = "El billete no cubre el monto total.";
+            carrito.push({...producto, cantidad: 1});
         }
+        actualizarCarrito();
     });
-    document.getElementById("finalizarEfectivo").addEventListener("click", function () {
-        alert("Gracias por tu pedido. El pago se realizará al momento de la entrega o consumo.");
+});
+
+function actualizarCarrito() {
+    if (carrito.length === 0) {
+        carritoContenido.innerHTML = "<p class='info-rosa'>El carrito está vacío.</p>";
+        resumenCompra.style.display = "none";
+        domicilioForm.style.display = "none";
+        pagoForm.style.display = "none";
+        botonPDF.style.display = "none";
+        return;
+    }
+    carritoContenido.innerHTML = carrito.map(item => `
+        <div>
+            ${item.nombre} x${item.cantidad} - $${item.precio * item.cantidad}
+            <button class="eliminar" data-producto="${item.nombre}">Eliminar</button>
+        </div>
+    `).join("");
+    document.querySelectorAll(".eliminar").forEach(b => {
+        b.addEventListener("click", e => {
+            const nombre = e.target.getAttribute("data-producto");
+            carrito = carrito.filter(item => item.nombre !== nombre);
+            actualizarCarrito();
+        });
     });
+    mostrarResumenCompra();
+    domicilioForm.style.display = "block";
+    pagoForm.style.display = direccionGuardada ? "block" : "none";
+    botonPDF.style.display = "none";
+    pagoExito.textContent = "";
 }
 
-document.getElementById("finalizarTarjeta").addEventListener("click", function () {
-    alert("Pago con tarjeta realizado con éxito. ¡Gracias por tu pedido!");
-})
+function mostrarResumenCompra() {
+    let total = carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
+    resumenCompra.innerHTML = "<h3>Resumen de compra</h3>" +
+        carrito.map(item => `<div>${item.nombre} x${item.cantidad} = $${item.precio * item.cantidad}</div>`).join("") +
+        `<hr><strong>Total: $${total}</strong>`;
+    resumenCompra.style.display = "block";
+}
+
+domicilioForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const direccion = direccionInput.value.trim();
+    if (direccion.length > 0) {
+        direccionGuardada = direccion;
+        direccionMsg.textContent = "¡Dirección guardada!";
+        pagoForm.style.display = "block";
+    }
+});
+
+pagoForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const nombre = document.getElementById("nombre-tarjeta").value.trim();
+    const numero = document.getElementById("numero-tarjeta").value.trim();
+    const fecha = document.getElementById("fecha-exp").value.trim();
+    const cvv = document.getElementById("cvv").value.trim();
+    if (nombre && numero.length >= 16 && fecha && cvv.length >= 3) {
+        datosPago = {
+            nombre,
+            numero: "**** **** **** " + numero.slice(-4),
+            fecha,
+        };
+        pagoExito.textContent = "¡Pago realizado con éxito!";
+        pagoExitoso = true;
+        botonPDF.style.display = "inline-block";
+    } else {
+        pagoExito.textContent = "Datos incorrectos. Revisa los campos.";
+    }
+});
+
+botonPDF.addEventListener("click", () => {
+    if(!pagoExitoso || !direccionGuardada) {
+        alert("Primero paga y pon tu dirección.");
+        return;
+    }
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    let y = 10;
+    doc.setFontSize(14);
+    doc.text("Ticket de compra JOLMAR", 10, y);
+    y += 10;
+    doc.setFontSize(12);
+    doc.text("Fecha: " + new Date().toLocaleString(), 10, y);
+    y += 10;
+    doc.text("Dirección de envío:", 10, y);
+    y += 8;
+    doc.text(direccionGuardada, 10, y);
+    y += 10;
+    doc.text("Productos:", 10, y);
+    y += 8;
+    let total = 0;
+    carrito.forEach(item => {
+        doc.text(`${item.nombre} x${item.cantidad} = $${item.precio * item.cantidad}`, 12, y);
+        y += 8;
+        total += item.precio * item.cantidad;
+    });
+    y += 5;
+    doc.text(`Total: $${total}`, 10, y);
+    y += 10;
+    doc.text("Pago realizado con:", 10, y);
+    y += 8;
+    doc.text(`Titular: ${datosPago.nombre || ""}`, 10, y);
+    y += 7;
+    doc.text(`Tarjeta: ${datosPago.numero || ""}`, 10, y);
+    y += 7;
+    doc.text(`Expira: ${datosPago.fecha || ""}`, 10, y);
+    doc.save("ticket-jolmar.pdf");
+});
+
+// Comentarios
+const comentarios = [];
+const formulario = document.getElementById("comentarios-formulario");
+const comentariosLista = document.getElementById("comentarios-lista");
+
+formulario.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const texto = formulario.comentario.value.trim();
+    if (texto) {
+        comentarios.push(texto);
+        mostrarComentarios();
+        formulario.reset();
+    }
+});
+
+function mostrarComentarios() {
+    if (comentarios.length === 0) {
+        comentariosLista.innerHTML = "<h3 class='info-rosa'>Comentarios enviados:</h3><p class='info-rosa'>No hay comentarios aún.</p>";
+        return;
+    }
+    comentariosLista.innerHTML = "<h3 class='info-rosa'>Comentarios enviados:</h3>" +
+        comentarios.map(c => `<div class="comentario info-rosa">${c}</div>`).join("");
+}
+mostrarComentarios();

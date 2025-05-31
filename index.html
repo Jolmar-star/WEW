@@ -5,14 +5,17 @@
   <title>Menú Principal</title>
   <style>
     body {
-      background-color: #f2f2f2;
+      background-color: #dda7f2;
       font-family: Arial, sans-serif;
       text-align: center;
       padding: 50px;
     }
 
     h1 {
-      color: #333;
+      color: rgb(218, 233, 10);
+    }
+    h3 {
+      color: rgb(214, 5, 5);
     }
 
     .boton {
@@ -30,15 +33,575 @@
     .boton:hover {
       background-color: #45a049;
     }
+
+    /* Carrusel styles */
+    .carrusel-container {
+      position: relative;
+      width: 80%;
+      max-width: 600px;
+      margin: 40px auto 30px auto;
+      overflow: hidden;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      background: #fff;
+    }
+    .carrusel-slides {
+      display: flex;
+      transition: transform 0.5s;
+      width: 100%;
+    }
+    .carrusel-slide {
+      min-width: 100%;
+      box-sizing: border-box;
+    }
+    .carrusel-slide img {
+      width: 100%;
+      border-radius: 16px 16px 0 0;
+      height: 260px;
+      object-fit: cover;
+    }
+    .carrusel-caption {
+      padding: 10px 0;
+      color: #333;
+      font-weight: bold;
+    }
+    .carrusel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.4);
+      border: none;
+      color: #fff;
+      font-size: 24px;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      z-index: 2;
+      transition: background 0.2s;
+    }
+    .carrusel-btn:hover {
+      background: rgba(0,0,0,0.7);
+    }
+    .carrusel-btn.prev {
+      left: 10px;
+    }
+    .carrusel-btn.next {
+      right: 10px;
+    }
+    .carrusel-dots {
+      display: flex;
+      justify-content: center;
+      margin: 10px 0;
+    }
+    .carrusel-dot {
+      width: 12px;
+      height: 12px;
+      margin: 0 4px;
+      background: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .carrusel-dot.active {
+      background: #4CAF50;
+    }
+
+    /* Uiverse.io by Cobp background animation */
+    .container {
+      --color-0: #fff;
+      --color-1: #111;
+      --color-2: #222;
+      --color-3: #333;
+      --color-4: #2e2e2e;
+      --color-5: #d2b48c;
+      --color-6: #b22222;
+      --color-7: #871a1a;
+      --color-8: #ff6347;
+      width: 100%;
+      height: 100%;
+      min-height: 350px;
+      background-color: var(--color-1);
+      background-image: linear-gradient(
+          to top,
+          var(--color-2) 5%,
+          var(--color-1) 6%,
+          var(--color-1) 7%,
+          transparent 7%
+        ),
+        linear-gradient(to bottom, var(--color-1) 30%, transparent 30%),
+        linear-gradient(to right, var(--color-2), var(--color-4) 5%, transparent 5%),
+        linear-gradient(
+          to right,
+          transparent 6%,
+          var(--color-2) 6%,
+          var(--color-4) 9%,
+          transparent 9%
+        ),
+        linear-gradient(
+          to right,
+          transparent 27%,
+          var(--color-2) 27%,
+          var(--color-4) 34%,
+          transparent 34%
+        ),
+        linear-gradient(
+          to right,
+          transparent 51%,
+          var(--color-2) 51%,
+          var(--color-4) 57%,
+          transparent 57%
+        ),
+        linear-gradient(to bottom, var(--color-1) 35%, transparent 35%),
+        linear-gradient(
+          to right,
+          transparent 42%,
+          var(--color-2) 42%,
+          var(--color-4) 44%,
+          transparent 44%
+        ),
+        linear-gradient(
+          to right,
+          transparent 45%,
+          var(--color-2) 45%,
+          var(--color-4) 47%,
+          transparent 47%
+        ),
+        linear-gradient(
+          to right,
+          transparent 48%,
+          var(--color-2) 48%,
+          var(--color-4) 50%,
+          transparent 50%
+        ),
+        linear-gradient(
+          to right,
+          transparent 87%,
+          var(--color-2) 87%,
+          var(--color-4) 91%,
+          transparent 91%
+        ),
+        linear-gradient(to bottom, var(--color-1) 37.5%, transparent 37.5%),
+        linear-gradient(
+          to right,
+          transparent 14%,
+          var(--color-2) 14%,
+          var(--color-4) 20%,
+          transparent 20%
+        ),
+        linear-gradient(to bottom, var(--color-1) 40%, transparent 40%),
+        linear-gradient(
+          to right,
+          transparent 10%,
+          var(--color-2) 10%,
+          var(--color-4) 13%,
+          transparent 13%
+        ),
+        linear-gradient(
+          to right,
+          transparent 21%,
+          var(--color-2) 21%,
+          #1a1a1a 25%,
+          transparent 25%
+        ),
+        linear-gradient(
+          to right,
+          transparent 58%,
+          var(--color-2) 58%,
+          var(--color-4) 64%,
+          transparent 64%
+        ),
+        linear-gradient(
+          to right,
+          transparent 92%,
+          var(--color-2) 92%,
+          var(--color-4) 95%,
+          transparent 95%
+        ),
+        linear-gradient(to bottom, var(--color-1) 48%, transparent 48%),
+        linear-gradient(
+          to right,
+          transparent 96%,
+          var(--color-2) 96%,
+          #1a1a1a 99%,
+          transparent 99%
+        ),
+        linear-gradient(
+          to bottom,
+          transparent 68.5%,
+          transparent 76%,
+          var(--color-1) 76%,
+          var(--color-1) 77.5%,
+          transparent 77.5%,
+          transparent 86%,
+          var(--color-1) 86%,
+          var(--color-1) 87.5%,
+          transparent 87.5%
+        ),
+        linear-gradient(
+          to right,
+          transparent 35%,
+          var(--color-2) 35%,
+          var(--color-4) 41%,
+          transparent 41%
+        ),
+        linear-gradient(to bottom, var(--color-1) 68%, transparent 68%),
+        linear-gradient(
+          to right,
+          transparent 78%,
+          var(--color-3) 78%,
+          var(--color-3) 80%,
+          transparent 80%,
+          transparent 82%,
+          var(--color-3) 82%,
+          var(--color-3) 83%,
+          transparent 83%
+        ),
+        linear-gradient(
+          to right,
+          transparent 66%,
+          var(--color-2) 66%,
+          var(--color-4) 85%,
+          transparent 85%
+        );
+      background-size: 300px 150px;
+      background-position: center bottom;
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: -1;
+      pointer-events: none;
+    }
+    .container:before {
+      content: "";
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      background-color: var(--color-1);
+      background-image: linear-gradient(
+          to top,
+          var(--color-5) 5%,
+          var(--color-1) 6%,
+          var(--color-1) 7%,
+          transparent 7%
+        ),
+        linear-gradient(to bottom, var(--color-1) 30%, transparent 30%),
+        linear-gradient(to right, var(--color-6), var(--color-7) 5%, transparent 5%),
+        linear-gradient(
+          to right,
+          transparent 6%,
+          #ff6347 6%,
+          #ff3814 9%,
+          transparent 9%
+        ),
+        linear-gradient(
+          to right,
+          transparent 27%,
+          #556b2f 27%,
+          #39481f 34%,
+          transparent 34%
+        ),
+        linear-gradient(
+          to right,
+          transparent 51%,
+          #fa8072 51%,
+          #f85441 57%,
+          transparent 57%
+        ),
+        linear-gradient(to bottom, var(--color-1) 35%, transparent 35%),
+        linear-gradient(
+          to right,
+          transparent 42%,
+          #008080 42%,
+          #004d4d 44%,
+          transparent 44%
+        ),
+        linear-gradient(
+          to right,
+          transparent 45%,
+          #008080 45%,
+          #004d4d 47%,
+          transparent 47%
+        ),
+        linear-gradient(
+          to right,
+          transparent 48%,
+          #008080 48%,
+          #004d4d 50%,
+          transparent 50%
+        ),
+        linear-gradient(
+          to right,
+          transparent 87%,
+          #789 87%,
+          #4f5d6a 91%,
+          transparent 91%
+        ),
+        linear-gradient(to bottom, var(--color-1) 37.5%, transparent 37.5%),
+        linear-gradient(
+          to right,
+          transparent 14%,
+          #bdb76b 14%,
+          #989244 20%,
+          transparent 20%
+        ),
+        linear-gradient(to bottom, var(--color-1) 40%, transparent 40%),
+        linear-gradient(
+          to right,
+          transparent 10%,
+          #808000 10%,
+          #4d4d00 13%,
+          transparent 13%
+        ),
+        linear-gradient(
+          to right,
+          transparent 21%,
+          #8b4513 21%,
+          #5e2f0d 25%,
+          transparent 25%
+        ),
+        linear-gradient(
+          to right,
+          transparent 58%,
+          #8b4513 58%,
+          #5e2f0d 64%,
+          transparent 64%
+        ),
+        linear-gradient(
+          to right,
+          transparent 92%,
+          #2f4f4f 92%,
+          #1c2f2f 95%,
+          transparent 95%
+        ),
+        linear-gradient(to bottom, var(--color-1) 48%, transparent 48%),
+        linear-gradient(
+          to right,
+          transparent 96%,
+          #2f4f4f 96%,
+          #1c2f2f 99%,
+          transparent 99%
+        ),
+        linear-gradient(
+          to bottom,
+          transparent 68.5%,
+          transparent 76%,
+          var(--color-1) 76%,
+          var(--color-1) 77.5%,
+          transparent 77.5%,
+          transparent 86%,
+          var(--color-1) 86%,
+          var(--color-1) 87.5%,
+          transparent 87.5%
+        ),
+        linear-gradient(
+          to right,
+          transparent 35%,
+          #cd5c5c 35%,
+          #bc3a3a 41%,
+          transparent 41%
+        ),
+        linear-gradient(to bottom, var(--color-1) 68%, transparent 68%),
+        linear-gradient(
+          to right,
+          transparent 78%,
+          #bc8f8f 78%,
+          #bc8f8f 80%,
+          transparent 80%,
+          transparent 82%,
+          #bc8f8f 82%,
+          #bc8f8f 83%,
+          transparent 83%
+        ),
+        linear-gradient(
+          to right,
+          transparent 66%,
+          #a52a2a 66%,
+          #7c2020 85%,
+          transparent 85%
+        );
+      background-size: 300px 150px;
+      background-position: center bottom;
+      clip-path: circle(150px at center center);
+      animation: flashlight 20s ease infinite;
+      transition: opacity 0s;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .container:after {
+      content: "";
+      width: 25px;
+      height: 10px;
+      position: absolute;
+      left: calc(50% + 59px);
+      bottom: 100px;
+      background-repeat: no-repeat;
+      background-image: radial-gradient(circle, #fff 50%, transparent 50%),
+        radial-gradient(circle, #fff 50%, transparent 50%);
+      background-size: 10px 10px;
+      background-position:
+        left center,
+        right center;
+      animation: eyes 20s infinite;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    @keyframes flashlight {
+      0% {
+        clip-path: circle(150px at -25% 10%);
+      }
+      19% {
+        clip-path: circle(150px at 30% 50%);
+      }
+      38% {
+        clip-path: circle(150px at 60% 20%);
+      }
+      39% {
+        opacity: 1;
+        clip-path: circle(150px at 60% 86%);
+      }
+      40% {
+        opacity: 0;
+        clip-path: circle(150px at 60% 86%);
+      }
+      41% {
+        opacity: 1;
+        clip-path: circle(150px at 60% 86%);
+      }
+      42% {
+        opacity: 0;
+        clip-path: circle(150px at 60% 86%);
+      }
+      54% {
+        opacity: 0;
+        clip-path: circle(150px at 60% 86%);
+      }
+      55% {
+        opacity: 1;
+        clip-path: circle(150px at 60% 86%);
+      }
+      59% {
+        opacity: 1;
+        clip-path: circle(150px at 60% 86%);
+      }
+      64% {
+        clip-path: circle(150px at 45% 86%);
+      }
+      68% {
+        clip-path: circle(150px at 85% 86%);
+      }
+      72% {
+        clip-path: circle(150px at 60% 86%);
+      }
+      74% {
+        clip-path: circle(150px at 60% 86%);
+      }
+      100% {
+        clip-path: circle(150px at 150% 50%);
+      }
+    }
+
+    @keyframes eyes {
+      0%,
+      38% {
+        opacity: 0;
+      }
+      39%,
+      41% {
+        opacity: 1;
+        transform: scaleY(1);
+      }
+      40% {
+        transform: scaleY(0);
+      }
+      41% {
+        transform: scaleY(1);
+      }
+      42%,
+      100% {
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
+  <div class="container"></div>
+  <h1>Bienvenido a JOLMAR</h1>
+  <h3>Al escoger los productos favor de deslizar hasta abajo para el pago requerido, al igual que no olvide checar los demas apartados para estar informado</h3>
 
-  <h1>Bienvenido al sistema de pedidos</h1>
-  <p>Selecciona una opción:</p>
+  <!-- Carrusel -->
+  <div class="carrusel-container">
+    <button class="carrusel-btn prev">&#10094;</button>
+    <div class="carrusel-slides">
+      <div class="carrusel-slide">
+        <img src="https://cdn.shopify.com/s/files/1/0402/9772/6109/collections/papeleria_1024x.jpg?v=1609260528" alt="Papelería">
+        <div class="carrusel-caption">Papelería: Todo para tu oficina y escuela</div>
+      </div>
+      <div class="carrusel-slide">
+        <img src="https://panafargo.com/wp-content/uploads/2018/07/que-es-papeleria-2-1200x800.jpg" alt="Ofertas">
+        <div class="carrusel-caption">Precios Bajos y Productos de Calidada</div>
+      </div>
+      <div class="carrusel-slide">
+        <img src="https://tse3.mm.bing.net/th/id/OIP.8OG7T_6Y6mefKOfU_LjZywHaEK?w=1600&h=900&rs=1&pid=ImgDetMain" alt="Novedades">
+        <div class="carrusel-caption">Lo Mejor de lo Mejor</div>
+      </div>
+    </div>
+    <button class="carrusel-btn next">&#10095;</button>
+    <div class="carrusel-dots">
+      <span class="carrusel-dot active"></span>
+      <span class="carrusel-dot"></span>
+      <span class="carrusel-dot"></span>
+    </div>
+  </div>
 
-  <a class="boton" href="pizzeria.html"> Pizzeria</a>
-  <a class="boton" href="papejolmar.html"> Papeleria</a>
+  <a class="boton" href="papejolmar.html">Papelería</a>
 
+  <script>
+    // Carrusel JS
+    const slides = document.querySelectorAll('.carrusel-slide');
+    const slidesContainer = document.querySelector('.carrusel-slides');
+    const prevBtn = document.querySelector('.carrusel-btn.prev');
+    const nextBtn = document.querySelector('.carrusel-btn.next');
+    const dots = document.querySelectorAll('.carrusel-dot');
+    let currentIndex = 0;
+    let intervalId;
+
+    function showSlide(idx) {
+      if (idx < 0) idx = slides.length - 1;
+      if (idx >= slides.length) idx = 0;
+      slidesContainer.style.transform = 'translateX(' + (-idx * 100) + '%)';
+      dots.forEach((dot, i) => dot.classList.toggle('active', i === idx));
+      currentIndex = idx;
+    }
+
+    prevBtn.addEventListener('click', () => {
+      showSlide(currentIndex - 1);
+      resetInterval();
+    });
+    nextBtn.addEventListener('click', () => {
+      showSlide(currentIndex + 1);
+      resetInterval();
+    });
+    dots.forEach((dot, i) => dot.addEventListener('click', () => {
+      showSlide(i);
+      resetInterval();
+    }));
+
+    function startInterval() {
+      intervalId = setInterval(() => showSlide(currentIndex + 1), 5000);
+    }
+    function resetInterval() {
+      clearInterval(intervalId);
+      startInterval();
+    }
+
+    // Init
+    showSlide(0);
+    startInterval();
+  </script>
 </body>
 </html>
