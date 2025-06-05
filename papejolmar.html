@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejemplo de Apartados y Productos</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <a href="#" onclick="mostrarApartado('productos')">Productos</a>
+        <a href="#" onclick="mostrarApartado('servicios')">Servicios</a>
+        <a href="#" onclick="mostrarApartado('acerca')">Acerca de</a>
+        <a href="#" onclick="mostrarApartado('contacto')">Contacto</a>
+        <a href="#" onclick="mostrarApartado('faq')">Preguntas Frecuentes</a>
+        <a href="#" onclick="mostrarApartado('comentarios')">Enviar Comentario</a>
+    </nav>
+
+    <!-- Apartado Productos -->
+    <div id="productos" class="apartado">
+        <h2 class="info-rosa">Productos</h2>
+        <div id="carrito-contenido" class="info-rosa"></div>
+        <div class="productos-grid"></div>
+        <div id="resumen-compra" class="resumen-compra info-rosa" style="display:none;"></div>
+        <form id="domicilio-form" class="domicilio-form" style="display:none;">
+            <h3 class="info-rosa">Servicio a domicilio</h3>
+            <label for="direccion" class="info-rosa">Dirección de entrega:</label>
+            <input type="text" id="direccion" name="direccion" required>
+            <button type="submit">Guardar dirección</button>
+            <div id="direccion-guardada" style="color:#e754a1;margin-top:8px;"></div>
+        </form>
+        <form id="pago-form" class="pago-form" style="display:none;">
+            <h3 class="info-rosa">Metodo de pago (Tarjeta)</h3>
+            <label for="nombre-tarjeta" class="info-rosa">Nombre en la tarjeta:</label>
+            <input type="text" id="nombre-tarjeta" required>
+            <label for="numero-tarjeta" class="info-rosa">Numero de tarjeta:</label>
+            <input type="text" id="numero-tarjeta" maxlength="19" pattern="\d{16,19}" required>
+            <label for="fecha-exp" class="info-rosa">Fecha de expiracion (MM/AA):</label>
+            <input type="text" id="fecha-exp" required placeholder="MM/AA" maxlength="5" pattern="\d{2}/\d{2}">
+            <label for="cvv" class="info-rosa">CVV:</label>
+            <input type="text" id="cvv" maxlength="4" required pattern="\d{3,4}">
+            <button type="submit">Pagar</button>
+            <div id="pago-exito" style="color:#e754a1;margin-top:8px;"></div>
+        </form>
+        
+        <button id="generar-pdf" style="display:none;">Generar PDF</button>
+    </div>
+
+    <!-- Apartado Servicios -->
+    <div id="servicios" class="apartado servicios-decorado">
+        <h2 class="info-rosa">Servicios</h2>
+        <div class="servicios-contenido">
+            <div class="servicio-imgs">
+                <img src="https://www.cooperativaobrera.coop/images/2020/05/04/a_envios-a-domicilio__400x400.png" alt="Entrega" class="img-servicio" title="Envío a domicilio">
+            </div>
+            <ul class="info-rosa lista-servicios">
+                <li>
+                    <b>Envío gratis:</b> JOLMAR cuenta con un servicio a domicilio gratuito, con una garantía de <b>3 días</b> desde la llegada del producto, siempre y cuando cuente con el PDF generado en la página web.
+                </li>
+                <li>
+                    <b>Condición de garantía:</b> Si el producto está dañado y pasan más de tres días, ya no podremos hacer nada por el usuario.
+                </li>
+                <li>
+                    <b>Atención personalizada:</b> Para atender su garantía, deje un comentario con correo electrónico, número telefónico o red social para contactarlo y cambiar el producto dañado.
+                </li>
+                <li>
+                    <b>Respeto:</b> Al comentar, evite opiniones ofensivas. Si el producto o la página no es de su agrado le atenderemos con gusto.
+                </li>
+            </ul>
+        </div>
+        <button class="glow-btn" onclick="mostrarApartado('productos')">Atrás</button>
+    </div>
+
+    <div id="acerca" class="apartado">
+    <h2 class="info-rosa">Acerca de</h2>
+    <div class="cuadro-info">Los productos vienen importados desde Calle: Miguel Hidalgo, AV: Matamoros, Tizayuca Hidalgo S/N.</div>
+    <button class="glow-btn" onclick="mostrarApartado('productos')">Atrás</button>
+</div>
+
+    <div id="contacto" class="apartado">
+    <h2 class="info-rosa">Contacto</h2>
+    <div class="cuadro-info">
+        <p>No. telefónico: 55867728899</p>
+        <p>Correo electrónico: monterjolette7@gmail.com</p>
+    </div>
+    <button class="glow-btn" onclick="mostrarApartado('productos')">Atrás</button>
+</div>
+<div id="faq" class="apartado">
+    <h2 class="info-rosa">Preguntas Frecuentes</h2>
+    <div class="cuadro-info">
+        <p>¿Es de buena calidad? Sí, ya que escogemos lo mejor para nuestros clientes.</p>
+        <p>¿Cuánto tarda en llegar el producto? De 3 a 7 días según la provincia.</p>
+        <p>¿Acepta pagos en efectivo? Solo si la compra fue realizada en nuestra tienda física.</p>
+    </div>
+    <button class="glow-btn" onclick="mostrarApartado('productos')">Atrás</button>
+</div>
+
+
+    <div id="comentarios" class="apartado">
+    <h2 class="info-rosa">Enviar Comentario</h2>
+    <form id="comentarios-formulario"> ... </form>
+    
+    <div id="comentarios-lista" class="cuadro-info">
+        <h3 class="info-rosa">Comentarios enviados:</h3>
+        <!-- Comentarios se mostrarán aquí -->
+    </div>
+    
+    <button class="glow-btn" onclick="mostrarApartado('productos')">Atrás</button>
+</div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
