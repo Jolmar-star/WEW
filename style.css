@@ -44,7 +44,6 @@ nav a:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    
 }
 .producto img {
     width: 180px;
@@ -200,4 +199,73 @@ button.eliminar {
     box-shadow: 0 0 0.6em .25em var(--glow-color),
             0 0 2.5em 2em var(--glow-spread-color),
             inset 0 0 .5em .25em var(--glow-color);
+}
+
+/* ---- SERVICIOS ---- */
+.servicios-decorado {
+    background: linear-gradient(135deg, #fff0fa 90%, #e3f0ff 100%);
+    border: 2px solid #e754a1;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px 0 rgba(231,84,161,0.13);
+    padding: 32px 16px 24px 16px;
+    margin-bottom: 40px;
+    max-width: 900px;
+}
+.servicios-contenido {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 32px;
+    flex-wrap: wrap;
+}
+.servicio-imgs {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    align-items: center;
+    justify-content: flex-start;
+    margin-right: 32px;
+}
+.img-servicio {
+    width: 80px;
+    height: 80px;
+    border-radius: 18px;
+    box-shadow: 0 2px 12px rgba(231,84,161,0.25);
+    background: #fff;
+    padding: 10px;
+}
+.lista-servicios {
+    font-size: 1.08em;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+.lista-servicios li {
+    background: #fffbe6;
+    border-radius: 8px;
+    border: 1px solid #ffe066;
+    padding: 13px 16px;
+    box-shadow: 1px 1px 8px #f8e5c0;
+    margin-bottom: 5px;
+}
+@media (max-width: 700px) {
+    .servicios-contenido {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+    .servicio-imgs {
+        flex-direction: row;
+        margin-right: 0;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+    .img-servicio {
+        width: 60px;
+        height: 60px;
+        padding: 6px;
+    }
 }
