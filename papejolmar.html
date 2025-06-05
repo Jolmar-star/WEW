@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+papejolmar.html<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -42,6 +42,7 @@
             <button type="submit">Pagar</button>
             <div id="pago-exito" style="color:#e754a1;margin-top:8px;"></div>
         </form>
+        
         <button id="generar-pdf" style="display:none;">Generar PDF</button>
     </div>
 
@@ -50,81 +51,63 @@
         <h2 class="info-rosa">Servicios</h2>
         <div class="servicios-contenido">
             <div class="servicio-imgs">
+              
+            
+            
             </div>
             <ul class="info-rosa lista-servicios">
                 <li>
                     <b>Envío gratis:</b> JOLMAR cuenta con un servicio a domicilio gratuito, con una garantía de <b>3 días</b> desde la llegada del producto, siempre y cuando cuente con el PDF generado en la página web.
-                    <img src="https://cdn-icons-png.flaticon.com/512/1046/1046857.png" alt="Entrega" class="img-servicio" title="Envío a domicilio">
                 </li>
+                <img src="https://cdn-icons-png.flaticon.com/512/1046/1046857.png" alt="Entrega" class="img-servicio" title="Envío a domicilio">
                 <li>
                     <b>Condición de garantía:</b> Si el producto está dañado y pasan más de tres días, ya no podremos hacer nada por el usuario.
-                    <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="Garantía" class="img-servicio" title="Garantía">
                 </li>
+                <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="Garantía" class="img-servicio" title="Garantía">
                 <li>
                     <b>Atención personalizada:</b> Para atender su garantía, deje un comentario con correo electrónico, número telefónico o red social para contactarlo y cambiar el producto dañado.
-                    <img src="https://cdn-icons-png.flaticon.com/512/1077/1077012.png" alt="Atención" class="img-servicio" title="Atención al cliente">
                 </li>
                 <li>
                     <b>Respeto:</b> Al comentar, evite opiniones ofensivas. Si el producto o la página no es de su agrado le atenderemos con gusto.
-                    <img src="https://cdn-icons-png.flaticon.com/512/681/681494.png" alt="Respeto" class="img-servicio" title="Respeto">
                 </li>
+                <img src="https://cdn-icons-png.flaticon.com/512/1077/1077012.png" alt="Atención" class="img-servicio" title="Atención al cliente">
             </ul>
         </div>
         <button class="glow-btn" onclick="mostrarApartado('productos')">Atrás</button>
     </div>
 
     <!-- Apartado Acerca de -->
-    <div id="acerca" class="apartado acerca-decorado">
+    <div id="acerca" class="apartado">
         <h2 class="info-rosa">Acerca de</h2>
-        <div class="acerca-flex">
-            <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Ubicación" class="acerca-img" style="margin-right:24px;">
-            <div>
-                <p class="info-rosa">Los productos vienen importados desde Calle: Miguel Hidalgo, AV: Matamoros, Tizayuca Hidalgo S/N.</p>
-                <p class="info-rosa"><strong>¡Somos JOLMAR! Calidad, confianza y entrega rápida.</strong></p>
-            </div>
-        </div>
+        <p class="info-rosa">Los productos vienen importados desde Calle: Miguel Hidalgo, AV: Matamoros, Tizayuca Hidalgo S/N.</p>
         <button class="glow-btn" onclick="mostrarApartado('productos')">Atrás</button>
     </div>
 
     <!-- Apartado Contacto -->
-    <div id="contacto" class="apartado contacto-decorado">
+    <div id="contacto" class="apartado">
         <h2 class="info-rosa">Contacto</h2>
-        <div class="contacto-flex">
-            <img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="Teléfono" class="contacto-img">
-            <div>
-                <p class="info-rosa">No. telefónico: <a href="tel:55867728899" class="info-rosa" style="text-decoration:underline;">55867728899</a></p>
-                <p class="info-rosa">Correo electrónico: <a href="mailto:monterjolette7@gmail.com" class="info-rosa" style="text-decoration:underline;">monterjolette7@gmail.com</a></p>
-            </div>
-            <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email" class="contacto-img">
-        </div>
+        <p class="info-rosa">No. telefónico: 55867728899</p>
+        <p class="info-rosa">Correo electrónico: monterjolette7@gmail.com</p>
         <button class="glow-btn" onclick="mostrarApartado('productos')">Atrás</button>
     </div>
 
     <!-- Apartado FAQ -->
-    <div id="faq" class="apartado faq-decorado">
+    <div id="faq" class="apartado">
         <h2 class="info-rosa">Preguntas Frecuentes</h2>
-        <div class="faq-flex">
-            <img src="https://cdn-icons-png.flaticon.com/512/3039/3039430.png" alt="FAQ" class="faq-img">
-            <div>
-                <p class="info-rosa"><b>¿Es de buena calidad?</b> Sí, ya que escogemos lo mejor para nuestros clientes.</p>
-                <p class="info-rosa"><b>¿Cuánto tarda en llegar el producto?</b> De 3 a 7 días según la provincia.</p>
-                <p class="info-rosa"><b>¿Acepta pagos en efectivo?</b> Solo si la compra fue realizada en nuestra tienda física.</p>
-            </div>
-        </div>
+        <p class="info-rosa">¿Es de buena calidad? Sí, ya que escogemos lo mejor para nuestros clientes.</p>
+        <p class="info-rosa">¿Cuánto tarda en llegar el producto? De 3 a 7 días según la provincia.</p>
+        <p class="info-rosa">¿Acepta pagos en efectivo? Solo si la compra fue realizada en nuestra tienda física.</p>
         <button class="glow-btn" onclick="mostrarApartado('productos')">Atrás</button>
     </div>
 
     <!-- Apartado Comentarios -->
-    <div id="comentarios" class="apartado comentarios-decorado">
+    <div id="comentarios" class="apartado">
         <h2 class="info-rosa">Enviar Comentario</h2>
-        <div class="comentarios-flex">
-            <img src="https://cdn-icons-png.flaticon.com/512/2612/2612487.png" alt="Comentarios" class="comentarios-img">
-            <form id="comentarios-formulario">
-                <label for="comentario" class="info-rosa">Tu comentario:</label><br>
-                <textarea id="comentario" name="comentario" required></textarea><br>
-                <button type="submit">Enviar</button>
-            </form>
-        </div>
+        <form id="comentarios-formulario">
+            <label for="comentario" class="info-rosa">Tu comentario:</label><br>
+            <textarea id="comentario" name="comentario" required></textarea><br>
+            <button type="submit">Enviar</button>
+        </form>
         <div id="comentarios-lista">
             <h3 class="info-rosa">Comentarios enviados:</h3>
             <!-- Comentarios se mostrarán aquí -->
@@ -133,5 +116,3 @@
     </div>
 
     <script src="script.js"></script>
-</body>
-</html>
