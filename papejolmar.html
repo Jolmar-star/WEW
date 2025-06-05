@@ -51,23 +51,20 @@
         <h2 class="info-rosa">Servicios</h2>
         <div class="servicios-contenido">
             <div class="servicio-imgs">
-                </div>
+                <img src="https://cdn-icons-png.flaticon.com/512/1046/1046857.png" alt="Entrega" class="img-servicio" title="Envío a domicilio">
+                <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="Garantía" class="img-servicio" title="Garantía">
+                <img src="https://cdn-icons-png.flaticon.com/512/1077/1077012.png" alt="Atención" class="img-servicio" title="Atención al cliente">
+            </div>
             <ul class="info-rosa lista-servicios">
                 <li>
                     <b>Envío gratis:</b> JOLMAR cuenta con un servicio a domicilio gratuito, con una garantía de <b>3 días</b> desde la llegada del producto, siempre y cuando cuente con el PDF generado en la página web.
                 </li>
-                   <img src="https://cdn-icons-png.flaticon.com/512/1046/1046857.png" alt="Entrega" class="img-servicio" title="Envío a domicilio">
-            
                 <li>
                     <b>Condición de garantía:</b> Si el producto está dañado y pasan más de tres días, ya no podremos hacer nada por el usuario.
                 </li>
-                    <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="Garantía" class="img-servicio" title="Garantía">
-               
                 <li>
                     <b>Atención personalizada:</b> Para atender su garantía, deje un comentario con correo electrónico, número telefónico o red social para contactarlo y cambiar el producto dañado.
                 </li>
-                 <img src="https://cdn-icons-png.flaticon.com/512/1077/1077012.png" alt="Atención" class="img-servicio" title="Atención al cliente">
-         
                 <li>
                     <b>Respeto:</b> Al comentar, evite opiniones ofensivas. Si el producto o la página no es de su agrado le atenderemos con gusto.
                 </li>
@@ -77,40 +74,81 @@
     </div>
 
     <!-- Apartado Acerca de -->
-    <div id="acerca" class="apartado">
+    <div id="acerca" class="apartado servicios-decorado">
         <h2 class="info-rosa">Acerca de</h2>
-        <p class="info-rosa">Los productos vienen importados desde Calle: Miguel Hidalgo, AV: Matamoros, Tizayuca Hidalgo S/N.</p>
+        <div class="servicios-contenido">
+            <div class="servicio-imgs">
+                <img src="https://cdn-icons-png.flaticon.com/512/854/854956.png" alt="Ubicación" class="img-servicio" title="Ubicación">
+            </div>
+            <ul class="info-rosa lista-servicios">
+                <li>
+                    Los productos vienen importados desde Calle: Miguel Hidalgo, AV: Matamoros, Tizayuca Hidalgo S/N.
+                </li>
+            </ul>
+        </div>
         <button class="glow-btn" onclick="mostrarApartado('productos')">Atrás</button>
     </div>
 
     <!-- Apartado Contacto -->
-    <div id="contacto" class="apartado">
+    <div id="contacto" class="apartado servicios-decorado">
         <h2 class="info-rosa">Contacto</h2>
-        <p class="info-rosa">No. telefónico: 55867728899</p>
-        <p class="info-rosa">Correo electrónico: monterjolette7@gmail.com</p>
+        <div class="servicios-contenido">
+            <div class="servicio-imgs">
+                <img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="Teléfono" class="img-servicio" title="Teléfono">
+                <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Correo" class="img-servicio" title="Correo electrónico">
+            </div>
+            <ul class="info-rosa lista-servicios">
+                <li>
+                    <b>No. telefónico:</b> 55867728899
+                </li>
+                <li>
+                    <b>Correo electrónico:</b> monterjolette7@gmail.com
+                </li>
+            </ul>
+        </div>
         <button class="glow-btn" onclick="mostrarApartado('productos')">Atrás</button>
     </div>
 
     <!-- Apartado FAQ -->
-    <div id="faq" class="apartado">
+    <div id="faq" class="apartado servicios-decorado">
         <h2 class="info-rosa">Preguntas Frecuentes</h2>
-        <p class="info-rosa">¿Es de buena calidad? Sí, ya que escogemos lo mejor para nuestros clientes.</p>
-        <p class="info-rosa">¿Cuánto tarda en llegar el producto? De 3 a 7 días según la provincia.</p>
-        <p class="info-rosa">¿Acepta pagos en efectivo? Solo si la compra fue realizada en nuestra tienda física.</p>
+        <div class="servicios-contenido">
+            <div class="servicio-imgs">
+                <img src="https://cdn-icons-png.flaticon.com/512/545/545705.png" alt="FAQ" class="img-servicio" title="FAQ">
+            </div>
+            <ul class="info-rosa lista-servicios">
+                <li>
+                    <b>¿Es de buena calidad?</b> Sí, ya que escogemos lo mejor para nuestros clientes.
+                </li>
+                <li>
+                    <b>¿Cuánto tarda en llegar el producto?</b> De 3 a 7 días según la provincia.
+                </li>
+                <li>
+                    <b>¿Acepta pagos en efectivo?</b> Solo si la compra fue realizada en nuestra tienda física.
+                </li>
+            </ul>
+        </div>
         <button class="glow-btn" onclick="mostrarApartado('productos')">Atrás</button>
     </div>
 
     <!-- Apartado Comentarios -->
-    <div id="comentarios" class="apartado">
+    <div id="comentarios" class="apartado servicios-decorado">
         <h2 class="info-rosa">Enviar Comentario</h2>
-        <form id="comentarios-formulario">
-            <label for="comentario" class="info-rosa">Tu comentario:</label><br>
-            <textarea id="comentario" name="comentario" required></textarea><br>
-            <button type="submit">Enviar</button>
-        </form>
-        <div id="comentarios-lista">
-            <h3 class="info-rosa">Comentarios enviados:</h3>
-            <!-- Comentarios se mostrarán aquí -->
+        <div class="servicios-contenido">
+            <div class="servicio-imgs">
+                <img src="https://cdn-icons-png.flaticon.com/512/1380/1380338.png" alt="Comentario" class="img-servicio" title="Comentario">
+            </div>
+            <div style="width:100%">
+                <form id="comentarios-formulario">
+                    <label for="comentario" class="info-rosa">Tu comentario:</label><br>
+                    <textarea id="comentario" name="comentario" required></textarea><br>
+                    <button type="submit">Enviar</button>
+                </form>
+                <div id="comentarios-lista">
+                    <h3 class="info-rosa">Comentarios enviados:</h3>
+                    <!-- Comentarios se mostrarán aquí -->
+                </div>
+            </div>
         </div>
         <button class="glow-btn" onclick="mostrarApartado('productos')">Atrás</button>
     </div>
