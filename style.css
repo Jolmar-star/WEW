@@ -438,57 +438,309 @@ nav a:hover {
 }
 .faq-list { display: none; }
 
-/* Comentarios */
-#comentarios-formulario {
-    max-width: 400px;
-    margin: 0 auto 25px auto;
-    background: #fff0fa;
-    color: #e754a1;
-    padding: 20px;
-    border-radius: 10px;
-    border: 1px solid #e754a1;
-    box-shadow: 1px 1px 8px #e754a1;
+/* ...tu CSS anterior... */
+
+/* ...todo tu CSS anterior... */
+
+/* -----------------------------------------
+   COMENTARIOS: DISEÑO ULTRA PREMIUM + GLASS
+   ----------------------------------------- */
+.comentarios-bg {
+    background: linear-gradient(120deg, #fff0fa 60%, #fce7f6 100%);
+    border-radius: 32px;
+    margin: 0 4vw;
+    padding-bottom: 50px;
+    box-shadow: 0 6px 36px #e754a150, 0 1px 12px #ffb9ec33 inset;
+    position: relative;
+    overflow: visible;
+    min-height: 390px;
+    border: 2.5px solid #ffe2fa;
 }
-#comentarios-formulario textarea {
-    width: 100%;
-    min-height: 70px;
+#comentarios .apartado-banner {
+    background: linear-gradient(100deg, #ffe8fd 10%, #fff0fa 60%, #ffc6e7 100%);
+    border-radius: 34px 34px 0 0;
+    box-shadow: 0 8px 40px #ab0c9c25, 0 2px 20px #f5e1ff33;
+    margin-bottom: 12px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    overflow: visible;
+    position: relative;
+    min-height: 130px;
+}
+#comentarios .apartado-img {
+    width: 130px;
+    height: 120px;
+    object-fit: cover;
+    border-right: 2px solid #e754a1;
+    border-radius: 28px 0 60px 28px;
+    margin-left: 6px;
+    filter: drop-shadow(0 4px 24px #e754a120);
+    background: #fff0fa88;
+}
+#comentarios .apartado-banner-text {
+    padding-left: 36px;
+    padding-top: 10px;
+}
+#comentarios .apartado-banner-text h2 {
+    font-size: 2em;
+    color: #e754a1;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 18px #fff0fa90, 0 1px 4px #e754a160;
+}
+/* Efecto de burbujas y decoraciones pastel */
+.comentarios-bg::after,
+.comentarios-bg::before {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    z-index: 1;
+    pointer-events: none;
+}
+.comentarios-bg::before {
+    width: 130px;
+    height: 130px;
+    top: -40px;
+    left: -40px;
+    background: radial-gradient(circle, #ffb9ec 0%, #fff0fa00 90%);
+    opacity: 0.35;
+}
+.comentarios-bg::after {
+    width: 140px;
+    height: 140px;
+    bottom: 10px;
+    right: -60px;
+    background: radial-gradient(circle, #e754a144 0%, #fff0fa00 90%);
+    opacity: 0.22;
+}
+
+/* Formulario glassy y con sombra rosa */
+#comentarios form {
+    background: linear-gradient(120deg, #fff0fa 80%, #ffe6fa 100%);
+    backdrop-filter: blur(8px);
+    border-radius: 22px;
+    border: 2.5px solid #e754a1;
+    box-shadow: 0 10px 38px #e754a155, 0 2px 24px #e754a140 inset;
+    max-width: 480px;
+    margin: 38px auto 0 auto;
+    padding: 38px 36px 32px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: relative;
+    z-index: 2;
+    animation: fadeIn 1.13s;
+    transition: box-shadow .2s, border .2s;
+}
+#comentarios form:hover {
+    box-shadow: 0 16px 48px #e754a180, 0 2px 24px #e754a150 inset;
+    border: 2.5px solid #ff0486;
+}
+#comentarios form label {
+    color: #e754a1;
+    font-weight: bold;
+    margin-bottom: 4px;
+    font-size: 1.13em;
+    letter-spacing: 0.7px;
+    text-shadow: 0 1px 6px #ffb9ec60;
+}
+
+#comentarios form input[type="email"] {
+    background: #fff0fa;
+    border: 2px solid #e754a1;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 1.07em;
+    color: #b7005a;
+    transition: box-shadow .2s, border .2s;
+    box-shadow: 0 2px 12px #e754a140 inset;
+    margin-bottom: 7px;
+}
+#comentarios form input[type="email"]:focus {
+    outline: none;
+    border: 2.5px solid #ff0486;
+    box-shadow: 0 2px 18px #ff048640;
+}
+
+#comentarios form textarea {
+    background: #fff0fa;
+    border: 2px solid #e754a1;
+    border-radius: 12px;
+    padding: 18px;
+    font-size: 1.13em;
+    color: #b7005a;
+    min-height: 95px;
     resize: vertical;
-    border-radius: 6px;
-    border: 1px solid #e754a1;
-    margin-bottom: 10px;
-    font-size: 1em;
-    padding: 8px;
+    box-shadow: 0 2px 16px #e754a120 inset;
+    transition: border .2s, box-shadow .2s;
+}
+#comentarios form textarea:focus {
+    outline: none;
+    border: 2.5px solid #ff0486;
+    box-shadow: 0 2px 22px #ff048640;
+}
+
+#comentarios form button[type="submit"] {
+    background: linear-gradient(90deg,#ff0486,#e754a1 80%);
+    color: #fff0fa;
+    border: none;
+    font-weight: bold;
+    font-size: 1.13em;
+    border-radius: 13px;
+    padding: 15px 0;
+    margin-top: 8px;
+    box-shadow: 0 4px 24px #e754a170;
+    letter-spacing: 2.2px;
+    cursor: pointer;
+    transition: background .2s, color .2s, transform .13s, box-shadow .19s;
+    text-shadow: 0 1px 7px #e754a199;
+    position: relative;
+    overflow: hidden;
+}
+#comentarios form button[type="submit"]:hover {
+    background: linear-gradient(90deg,#ff0486 40%,#ffa7e6 100%);
     color: #e754a1;
-    background: #fff;
+    box-shadow: 0 8px 38px #ff048670, 0 2px 16px #ff048670 inset;
+    transform: scale(1.05) translateY(-2px);
 }
-#comentarios-lista {
-    max-width: 400px;
-    margin: 0 auto;
-    background: #fff0fa;
-    color: #e754a1;
-    border-radius: 10px;
-    border: 1px solid #e754a1;
-    box-shadow: 1px 1px 8px #e754a1;
-    padding: 15px 20px 10px 20px;
+#comentarios form button[type="submit"]::after {
+    content: "";
+    position: absolute;
+    left: 20%;
+    top: 50%;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(circle, #fff0fa66 0%, #fff0fa00 80%);
+    opacity: 0.5;
+    z-index: 0;
+    filter: blur(3px);
+    pointer-events: none;
+    transform: translateY(-50%);
 }
-.comentario {
-    border-bottom: 1px solid #eee;
-    padding: 8px 0;
-    font-size: 1em;
+
+/* Decoración glass y brillos */
+#comentarios form::before {
+    content: "";
+    position: absolute;
+    top: -33px; left: 25px;
+    width: 85px; height: 85px;
+    background: radial-gradient(circle, #e754a133 0%, #fff0fa00 90%);
+    z-index: 0;
+    pointer-events: none;
 }
-.comentario:last-child {
-    border-bottom: none;
+#comentarios form::after {
+    content: "";
+    position: absolute;
+    bottom: -34px; right: 18px;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle, #ff048624 0%, #fff0fa00 90%);
+    z-index: 0;
+    pointer-events: none;
 }
-.resumen-compra {
-    background: #fffbe6;
-    border: 1px solid #ffe066;
-    border-radius: 8px;
-    padding: 15px;
-    margin: 20px auto;
-    max-width: 400px;
-    box-shadow: 1px 1px 5px #f8e5c0;
-    color: #e754a1;
+
+/* Botón glow solo para comentarios */
+#comentarios .glow-btn {
+    margin-top: 40px;
 }
+
+/* Responsive */
+@media (max-width: 650px) {
+    .comentarios-bg {
+        margin: 0 1vw;
+        padding-bottom: 24px;
+        border-radius: 16px;
+    }
+    #comentarios .apartado-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0;
+        border-radius: 18px 18px 0 0;
+        min-height: 90px;
+    }
+    #comentarios .apartado-img {
+        width: 100%;
+        height: 90px;
+        border-radius: 18px 18px 0 0;
+        border-right: none;
+        border-bottom: 2px solid #e754a1;
+        margin-left: 0;
+    }
+    #comentarios .apartado-banner-text {
+        padding-left: 14px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    #comentarios form {
+        padding: 18px 8px 16px 8px;
+        max-width: 99vw;
+        border-radius: 14px;
+    }
+    
+}
+
+/* -----------------------------------------
+   FIN: COMENTARIOS ULTRA PREMIUM
+   ----------------------------------------- */
+
+/* ...resto de tu CSS igual que antes... */
+/* Glow botón en comentarios */
+#comentarios .glow-btn {
+    margin-top: 35px;
+}
+
+@media (max-width: 650px) {
+    .comentarios-bg {
+        margin: 0 2vw;
+        padding-bottom: 20px;
+    }
+    #comentarios .apartado-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0;
+    }
+    #comentarios .apartado-img {
+        width: 100%;
+        border-radius: 20px 20px 0 0;
+        border-right: none;
+        border-bottom: 2px solid #e754a1;
+    }
+    #comentarios .apartado-banner-text {
+        padding-left: 16px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    #comentarios form {
+        padding: 18px 8px;
+    }
+}
+
+/* -- EFECTOS Y DETALLES ESPECIALES PARA FORMULARIO -- */
+#comentarios form::before {
+    content: "";
+    position: absolute;
+    top: -25px;
+    left: 25px;
+    width: 75px;
+    height: 75px;
+    background: radial-gradient(circle, #e754a144 0%, #fff0fa00 90%);
+    z-index: 0;
+    pointer-events: none;
+}
+#comentarios form::after {
+    content: "";
+    position: absolute;
+    bottom: -30px;
+    right: 15px;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, #ff048624 0%, #fff0fa00 90%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* END de la sección ultra estilizada de comentarios */
+
+/* ...resto de tu CSS igual que antes... */
 /* Estilo para textos principales en rosa */
 .info-rosa, .info-rosa * {
     color: #ff0486 !important;
